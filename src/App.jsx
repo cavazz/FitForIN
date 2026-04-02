@@ -1,0 +1,17 @@
+import { BrowserRouter, Routes, Route } from 'react-router-dom'
+import Navbar from './components/Navbar'
+import Home from './pages/Home'
+import ArticlePage from './pages/ArticlePage'
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <Navbar />
+      <Routes>
+        <Route path="/"                   element={<Home />} />
+        <Route path="/articolo/:slug"     element={<ArticlePage />} />
+        <Route path="/categoria/:cat"     element={<Home />} />
+      </Routes>
+    </BrowserRouter>
+  )
+}

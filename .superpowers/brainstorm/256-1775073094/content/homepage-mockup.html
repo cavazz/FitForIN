@@ -1,0 +1,419 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitforIN — Homepage Mockup</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:      #0C0C0C;
+    --s1:      #111111;
+    --s2:      #161616;
+    --s3:      #1C1C1C;
+    --border:  rgba(255,255,255,0.06);
+    --white:   #FFFFFF;
+    --dim:     #888888;
+    --muted:   #3a3a3a;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--white);
+    font-family: 'Inter', -apple-system, sans-serif;
+    padding: 40px 24px 80px;
+  }
+  .max { max-width: 960px; margin: 0 auto; }
+
+  .hd { text-align: center; margin-bottom: 44px; }
+  .hd .ey { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: #333; margin-bottom: 10px; }
+  .hd h1 { font-size: clamp(22px, 3vw, 34px); font-weight: 800; letter-spacing: -1px; }
+  .hd p { font-size: 13px; color: #444; margin-top: 6px; }
+
+  /* ── PALETTE STRIP ── */
+  .palette-strip {
+    display: flex; border-radius: 12px; overflow: hidden;
+    height: 60px; margin-bottom: 36px; border: 1px solid var(--border);
+  }
+  .ps-col {
+    flex: 1; display: flex; flex-direction: column; justify-content: flex-end;
+    padding: 6px 10px; transition: flex 0.2s;
+  }
+  .ps-col:hover { flex: 2.5; }
+  .ps-hex { font-size: 8px; font-family: monospace; opacity: 0.5; }
+  .ps-name { font-size: 7px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.3; }
+
+  .sl { font-size: 10px; letter-spacing: 3px; text-transform: uppercase; color: #222; margin-bottom: 16px; padding-bottom: 10px; border-bottom: 1px solid #161616; }
+
+  /* ── SITE MOCKUP ── */
+  .site {
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+
+  /* noise overlay mixin */
+  .noise::after {
+    content: ''; position: absolute; inset: 0; pointer-events: none; z-index: 1;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='250' height='250'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='250' height='250' filter='url(%23n)' opacity='0.045'/%3E%3C/svg%3E");
+  }
+
+  /* ── NAV ── */
+  .nav {
+    background: var(--bg);
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--border);
+    position: relative; z-index: 10;
+  }
+  .nav-logo { font-size: 13px; font-weight: 900; letter-spacing: 4px; color: var(--white); text-transform: uppercase; }
+  .nav-links { display: flex; gap: 22px; font-size: 9px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
+  .nav-cta { font-size: 9px; font-weight: 700; padding: 6px 16px; border-radius: 4px; border: 1px solid rgba(255,255,255,0.15); color: var(--white); letter-spacing: 1px; text-transform: uppercase; }
+
+  /* ── HERO ── */
+  .hero {
+    background: var(--s1);
+    position: relative; overflow: hidden;
+    padding: 60px 28px 50px;
+    border-bottom: 1px solid var(--border);
+  }
+  .hero.noise::after { opacity: 1; }
+  .hero-num {
+    position: absolute; top: -20px; right: 20px;
+    font-size: 180px; font-weight: 900; letter-spacing: -10px;
+    color: rgba(255,255,255,0.025); line-height: 1; user-select: none;
+    text-transform: uppercase; pointer-events: none;
+  }
+  .hero-eyebrow {
+    font-size: 8px; letter-spacing: 4px; text-transform: uppercase; color: var(--muted);
+    display: flex; align-items: center; gap: 10px; margin-bottom: 24px;
+  }
+  .hero-eyebrow::before { content: ''; display: block; width: 20px; height: 1px; background: var(--muted); }
+  .hero-h1 {
+    font-size: clamp(48px, 9vw, 96px);
+    font-weight: 900; letter-spacing: -5px; line-height: 0.88;
+    text-transform: uppercase; margin-bottom: 28px; max-width: 680px; position: relative; z-index: 2;
+  }
+  .hero-h1 .outline {
+    -webkit-text-stroke: 1px rgba(255,255,255,0.18);
+    color: transparent; display: block;
+  }
+  .hero-h1 .solid { color: var(--white); display: block; }
+  .hero-sub {
+    font-size: 11px; color: var(--dim); max-width: 280px;
+    line-height: 1.7; margin-bottom: 28px; position: relative; z-index: 2;
+    border-left: 1px solid var(--muted); padding-left: 14px;
+  }
+  .hero-btns { display: flex; gap: 10px; position: relative; z-index: 2; }
+  .hero-btn {
+    font-size: 9px; font-weight: 800; padding: 10px 24px;
+    border-radius: 4px; letter-spacing: 2px; text-transform: uppercase;
+    background: var(--white); color: #000;
+  }
+  .hero-btn-ghost {
+    font-size: 9px; padding: 10px 24px; border-radius: 4px;
+    border: 1px solid var(--muted); color: var(--muted);
+    letter-spacing: 2px; text-transform: uppercase;
+  }
+  .hero-scroll {
+    position: absolute; bottom: 20px; right: 28px;
+    font-size: 8px; letter-spacing: 2px; color: var(--muted);
+    text-transform: uppercase; display: flex; align-items: center; gap: 8px; z-index: 2;
+  }
+  .hero-scroll-line { width: 28px; height: 1px; background: var(--muted); }
+
+  /* ── FEATURED STRIP ── */
+  .feat-strip {
+    background: var(--s2);
+    display: grid; grid-template-columns: 5fr 3fr 3fr;
+    border-bottom: 1px solid var(--border);
+  }
+  .feat-main { padding: 24px; border-right: 1px solid var(--border); position: relative; }
+  .feat-main-label {
+    font-size: 7px; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); margin-bottom: 12px;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .feat-main-label::before { content: ''; display: block; width: 12px; height: 1px; background: var(--muted); }
+  .feat-main-img {
+    height: 90px; border-radius: 6px; margin-bottom: 14px;
+    background: var(--s3); border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center; font-size: 24px; position: relative; overflow: hidden;
+  }
+  .feat-main-img-overlay {
+    position: absolute; inset: 0;
+    background: linear-gradient(135deg, rgba(255,255,255,0.02) 0%, transparent 100%);
+  }
+  .feat-main-cat { font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--dim); margin-bottom: 6px; }
+  .feat-main-title { font-size: 16px; font-weight: 800; letter-spacing: -0.5px; line-height: 1.2; margin-bottom: 6px; }
+  .feat-main-meta { font-size: 9px; color: var(--muted); }
+  .feat-main-arrow {
+    position: absolute; bottom: 24px; right: 24px;
+    font-size: 16px; color: var(--muted);
+  }
+
+  .feat-side { padding: 20px 18px; border-right: 1px solid var(--border); display: flex; flex-direction: column; justify-content: space-between; }
+  .feat-side:last-child { border-right: none; }
+  .feat-side-num { font-size: 44px; font-weight: 900; color: rgba(255,255,255,0.05); letter-spacing: -3px; line-height: 1; margin-bottom: 8px; }
+  .feat-side-cat { font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .feat-side-title { font-size: 12px; font-weight: 700; color: var(--dim); line-height: 1.4; }
+  .feat-side-read { font-size: 8px; color: var(--muted); letter-spacing: 1px; margin-top: 10px; text-transform: uppercase; }
+
+  /* ── CATEGORY FILTERS ── */
+  .filters {
+    background: var(--bg);
+    display: flex; align-items: center; gap: 8px; padding: 14px 28px;
+    border-bottom: 1px solid var(--border); flex-wrap: wrap;
+  }
+  .filter-label { font-size: 8px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-right: 4px; }
+  .filter {
+    font-size: 9px; padding: 5px 14px; border-radius: 100px;
+    border: 1px solid var(--s3); color: var(--muted); letter-spacing: 0.5px; cursor: pointer;
+    transition: border-color .15s, color .15s;
+  }
+  .filter.on { border-color: rgba(255,255,255,0.3); color: var(--white); }
+
+  /* ── BLOG GRID ── */
+  .blog {
+    background: var(--s1);
+    padding: 28px; position: relative; overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .blog-hdr { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 18px; }
+  .blog-hdr-title { font-size: 10px; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; color: var(--muted); }
+  .blog-hdr-link { font-size: 9px; color: var(--dim); letter-spacing: 1px; text-transform: uppercase; }
+  .blog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .blog-card {
+    background: var(--s2);
+    border: 1px solid var(--border);
+    border-radius: 8px; padding: 14px; position: relative; overflow: hidden;
+    transition: border-color .15s;
+  }
+  .blog-card:hover { border-color: rgba(255,255,255,0.12); }
+  .blog-card::before {
+    content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+  }
+  .bc-num { font-size: 28px; font-weight: 900; color: rgba(255,255,255,0.04); letter-spacing: -2px; line-height: 1; margin-bottom: 8px; }
+  .bc-cat { font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--muted); margin-bottom: 6px; }
+  .bc-title { font-size: 11px; font-weight: 600; color: #aaa; line-height: 1.4; margin-bottom: 8px; }
+  .bc-meta { font-size: 8px; color: var(--muted); }
+
+  /* ── CTA STRIP ── */
+  .cta-strip {
+    background: var(--white);
+    padding: 28px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+  }
+  .cta-strip-left { }
+  .cta-strip-eyebrow { font-size: 8px; letter-spacing: 3px; text-transform: uppercase; color: #888; margin-bottom: 4px; }
+  .cta-strip-title { font-size: 20px; font-weight: 900; letter-spacing: -0.5px; color: #000; }
+  .cta-strip-btn { font-size: 10px; font-weight: 800; padding: 12px 24px; border-radius: 5px; background: #000; color: #fff; letter-spacing: 2px; text-transform: uppercase; }
+
+  /* ── FOOTER NAV ── */
+  .footer {
+    background: var(--bg);
+    padding: 24px 28px;
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border);
+  }
+  .footer-logo { font-size: 11px; font-weight: 900; letter-spacing: 3px; color: rgba(255,255,255,0.2); }
+  .footer-links { display: flex; gap: 16px; font-size: 8px; letter-spacing: 1px; color: var(--muted); text-transform: uppercase; }
+
+  /* ── DESIGN SYSTEM ── */
+  .ds-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: 8px; margin-bottom: 36px; }
+  .ds-swatch { border-radius: 10px; overflow: hidden; border: 1px solid var(--border); }
+  .ds-color { height: 60px; display: flex; align-items: flex-end; padding: 6px 10px; }
+  .ds-label { font-size: 7px; letter-spacing: 1px; opacity: 0.4; text-transform: uppercase; }
+  .ds-body { background: #111; padding: 8px 10px; }
+  .ds-hex { font-size: 10px; font-family: monospace; color: #ccc; font-weight: 600; }
+  .ds-name { font-size: 9px; color: #444; margin-top: 2px; }
+
+  /* ── VERDICT ── */
+  .verdict {
+    background: var(--s1); border: 1px solid var(--border);
+    border-radius: 12px; padding: 22px;
+  }
+  .verdict-title { font-size: 13px; font-weight: 700; margin-bottom: 10px; }
+  .verdict-body { font-size: 13px; color: #555; line-height: 1.7; }
+  .verdict-body strong { color: #aaa; }
+</style>
+</head>
+<body>
+<div class="max">
+
+  <div class="hd">
+    <div class="ey">FitforIN · Design System</div>
+    <h1>White on Dark — Mockup Completo</h1>
+    <p>Palette: #0C0C0C · #111 · #161 · #1C1C1C · #FFFFFF · #888</p>
+  </div>
+
+  <!-- PALETTE STRIP -->
+  <div class="palette-strip" style="margin-bottom:36px">
+    <div class="ps-col" style="background:#0C0C0C">
+      <span class="ps-hex">#0C0C0C</span><span class="ps-name">BG</span>
+    </div>
+    <div class="ps-col" style="background:#111111">
+      <span class="ps-hex">#111111</span><span class="ps-name">Surface</span>
+    </div>
+    <div class="ps-col" style="background:#161616">
+      <span class="ps-hex">#161616</span><span class="ps-name">Elevated</span>
+    </div>
+    <div class="ps-col" style="background:#1C1C1C">
+      <span class="ps-hex">#1C1C1C</span><span class="ps-name">Card</span>
+    </div>
+    <div class="ps-col" style="background:#888888; flex:0.8">
+      <span class="ps-hex">#888</span><span class="ps-name">Dim</span>
+    </div>
+    <div class="ps-col" style="background:#ffffff; flex:0.8">
+      <span class="ps-hex" style="color:#000">#FFF</span><span class="ps-name" style="color:#00000055">White</span>
+    </div>
+  </div>
+
+  <!-- HOMEPAGE MOCKUP -->
+  <div class="sl">Mockup homepage completa</div>
+  <div class="site">
+
+    <!-- NAV -->
+    <div class="nav">
+      <span class="nav-logo">FitforIN</span>
+      <div class="nav-links">
+        <span>Training</span>
+        <span>Alimentazione</span>
+        <span>Basket Lab</span>
+        <span>Medicina</span>
+      </div>
+      <span class="nav-cta">Blog →</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="hero noise">
+      <div class="hero-num">01</div>
+      <div class="hero-eyebrow">La Scienza applicata allo Sport</div>
+      <div class="hero-h1">
+        <span class="outline">SPORT</span>
+        <span class="solid">SCIENCE</span>
+        <span class="outline">BLOG.</span>
+      </div>
+      <p class="hero-sub">Articoli tecnici su allenamento, nutrizione e performance sportiva. Per chi prende lo sport sul serio.</p>
+      <div class="hero-btns">
+        <span class="hero-btn">Leggi gli articoli</span>
+        <span class="hero-btn-ghost">Esplora le categorie</span>
+      </div>
+      <div class="hero-scroll">
+        <div class="hero-scroll-line"></div>
+        Scroll
+      </div>
+    </div>
+
+    <!-- FEATURED -->
+    <div class="feat-strip">
+      <div class="feat-main">
+        <div class="feat-main-label">In evidenza</div>
+        <div class="feat-main-img">
+          🧠
+          <div class="feat-main-img-overlay"></div>
+        </div>
+        <div class="feat-main-cat">Basket Lab · Decision Making</div>
+        <div class="feat-main-title">Il cervello del playmaker</div>
+        <div class="feat-main-meta">8 min lettura · Carico cognitivo</div>
+        <span class="feat-main-arrow">↗</span>
+      </div>
+      <div class="feat-side">
+        <div>
+          <div class="feat-side-num">02</div>
+          <div class="feat-side-cat">Basket Lab</div>
+          <div class="feat-side-title">Il Quiet Eye nel basket</div>
+        </div>
+        <div class="feat-side-read">Leggi →</div>
+      </div>
+      <div class="feat-side">
+        <div>
+          <div class="feat-side-num">03</div>
+          <div class="feat-side-cat">Training</div>
+          <div class="feat-side-title">Allenare il gesto o l'atleta?</div>
+        </div>
+        <div class="feat-side-read">Leggi →</div>
+      </div>
+    </div>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <span class="filter-label">Categoria:</span>
+      <span class="filter on">Tutti</span>
+      <span class="filter">Training</span>
+      <span class="filter">Alimentazione</span>
+      <span class="filter">Basket Lab</span>
+      <span class="filter">Medicina sportiva</span>
+      <span class="filter">Scienza dell'esercizio</span>
+    </div>
+
+    <!-- BLOG GRID -->
+    <div class="blog noise">
+      <div class="blog-hdr">
+        <span class="blog-hdr-title">Ultimi articoli</span>
+        <span class="blog-hdr-link">Vedi tutti →</span>
+      </div>
+      <div class="blog-grid">
+        <div class="blog-card">
+          <div class="bc-num">04</div>
+          <div class="bc-cat">💪 Training</div>
+          <div class="bc-title">Post-Activation Potentiation</div>
+          <div class="bc-meta">6 min · Forza</div>
+        </div>
+        <div class="blog-card">
+          <div class="bc-num">05</div>
+          <div class="bc-cat">🧬 Scienza</div>
+          <div class="bc-title">Epigenetica e sport</div>
+          <div class="bc-meta">10 min · Biologia</div>
+        </div>
+        <div class="blog-card">
+          <div class="bc-num">06</div>
+          <div class="bc-cat">🏀 Basket Lab</div>
+          <div class="bc-title">Decelerazione nel basket</div>
+          <div class="bc-meta">5 min · Biomeccanica</div>
+        </div>
+        <div class="blog-card">
+          <div class="bc-num">07</div>
+          <div class="bc-cat">🏋️ Forza</div>
+          <div class="bc-title">ACSM: nuove linee guida forza</div>
+          <div class="bc-meta">8 min · Ricerca</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CTA STRIP -->
+    <div class="cta-strip">
+      <div class="cta-strip-left">
+        <div class="cta-strip-eyebrow">Non perdere nessun articolo</div>
+        <div class="cta-strip-title">Resta aggiornato con FitforIN.</div>
+      </div>
+      <span class="cta-strip-btn">Esplora il blog →</span>
+    </div>
+
+    <!-- FOOTER -->
+    <div class="footer">
+      <span class="footer-logo">FITFORIN</span>
+      <div class="footer-links">
+        <span>Training</span>
+        <span>Alimentazione</span>
+        <span>Basket Lab</span>
+        <span>Medicina</span>
+        <span>Contatti</span>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- VERDICT -->
+  <div class="verdict">
+    <div class="verdict-title">Perché funziona</div>
+    <div class="verdict-body">
+      <strong>Nessun colore accento</strong> significa che tutta la gerarchia visiva viene dalla tipografia, dal peso dei font, dalla dimensione e dall'alternanza dei layer dark. Il <strong>testo outlined</strong> (stroke bianco su nero) crea profondità senza aggiungere colore. La <strong>CTA strip in bianco pieno</strong> è l'inversione totale — l'unico "colore" del sito è il bianco usato a schermo intero, massimo impatto nel momento giusto. Questo è esattamente ciò che fa The Athletic, e che fa Marcelo quando vuole comunicare qualità assoluta.
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

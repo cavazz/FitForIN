@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitforIN — New Palette</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg:     #000000;
+    --s1:     #0a0a0a;
+    --s2:     #111111;
+    --border: rgba(255,255,255,0.07);
+    --text:   #ffffff;
+    --muted:  #555555;
+    --lime:   #C6FF00;
+    --lime2:  #A8D800;
+  }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    padding: 48px 24px 80px;
+  }
+
+  .max { max-width: 960px; margin: 0 auto; }
+
+  /* HEADER */
+  .hd { text-align: center; margin-bottom: 52px; }
+  .hd .eyebrow { font-size: 10px; letter-spacing: 4px; text-transform: uppercase; color: #333; margin-bottom: 12px; }
+  .hd h1 { font-size: clamp(28px, 4vw, 44px); font-weight: 900; letter-spacing: -2px; }
+  .hd h1 span { color: var(--lime); }
+  .hd p { font-size: 13px; color: var(--muted); margin-top: 8px; }
+
+  /* PALETTE BAR */
+  .palette-bar {
+    display: flex;
+    border-radius: 14px;
+    overflow: hidden;
+    height: 100px;
+    margin-bottom: 36px;
+    border: 1px solid var(--border);
+  }
+  .pb-col {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 8px 10px;
+    transition: flex 0.25s;
+    cursor: default;
+  }
+  .pb-col:hover { flex: 2.5; }
+  .pb-hex { font-size: 9px; font-family: monospace; opacity: 0.7; }
+  .pb-name { font-size: 7px; text-transform: uppercase; letter-spacing: 2px; opacity: 0.4; margin-top: 2px; }
+
+  /* SECTION LABEL */
+  .sl {
+    font-size: 10px; letter-spacing: 3px; text-transform: uppercase;
+    color: #2a2a2a; margin-bottom: 16px; padding-bottom: 10px;
+    border-bottom: 1px solid #111;
+  }
+
+  /* SWATCHES */
+  .sw-row { display: flex; gap: 8px; margin-bottom: 36px; flex-wrap: wrap; }
+  .sw {
+    flex: 1; min-width: 100px;
+    border-radius: 10px; overflow: hidden;
+    border: 1px solid var(--border);
+  }
+  .sw-color { height: 64px; position: relative; }
+  .sw-badge {
+    position: absolute; top: 6px; left: 6px;
+    font-size: 7px; letter-spacing: 1px; text-transform: uppercase;
+    background: rgba(0,0,0,0.5); color: rgba(255,255,255,0.4);
+    padding: 2px 6px; border-radius: 3px; backdrop-filter: blur(4px);
+  }
+  .sw-body { background: #0a0a0a; padding: 8px 10px; }
+  .sw-hex { font-size: 11px; font-family: monospace; color: #ccc; font-weight: 600; }
+  .sw-name { font-size: 9px; color: #444; margin-top: 2px; }
+
+  /* MOCKUP */
+  .mock {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-radius: 14px;
+    overflow: hidden;
+    margin-bottom: 36px;
+  }
+
+  /* NAV */
+  .m-nav {
+    display: flex; justify-content: space-between; align-items: center;
+    padding: 16px 28px;
+    border-bottom: 1px solid var(--border);
+  }
+  .m-logo {
+    font-size: 13px; font-weight: 900; letter-spacing: 3px; color: var(--lime);
+  }
+  .m-links { display: flex; gap: 20px; font-size: 9px; letter-spacing: 1px; color: #333; text-transform: uppercase; }
+  .m-cta {
+    font-size: 9px; font-weight: 700; padding: 6px 16px; border-radius: 4px;
+    background: var(--lime); color: #000; letter-spacing: 1px; text-transform: uppercase;
+  }
+
+  /* HERO */
+  .m-hero {
+    padding: 64px 28px 48px;
+    position: relative;
+    overflow: hidden;
+    border-bottom: 1px solid var(--border);
+  }
+  .m-hero-glow {
+    position: absolute; top: 0; left: 50%; transform: translateX(-50%);
+    width: 600px; height: 300px;
+    background: radial-gradient(ellipse at top, rgba(198,255,0,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .m-tag {
+    display: inline-block;
+    border: 1px solid rgba(198,255,0,0.25);
+    color: var(--lime);
+    font-size: 8px; letter-spacing: 3px; text-transform: uppercase;
+    padding: 4px 12px; border-radius: 100px; margin-bottom: 28px;
+  }
+  .m-h1 {
+    font-size: clamp(40px, 8vw, 82px);
+    font-weight: 900; letter-spacing: -4px; line-height: 0.92;
+    text-transform: uppercase;
+    margin-bottom: 24px; max-width: 700px;
+  }
+  .m-h1 .lime { color: var(--lime); }
+  .m-h1 .out {
+    -webkit-text-stroke: 1px rgba(255,255,255,0.15);
+    color: transparent;
+  }
+  .m-p { font-size: 12px; color: var(--muted); max-width: 340px; line-height: 1.7; margin-bottom: 28px; }
+  .m-btns { display: flex; gap: 10px; align-items: center; }
+  .m-btn-p {
+    font-size: 10px; font-weight: 700; padding: 10px 24px; border-radius: 5px;
+    background: var(--lime); color: #000; letter-spacing: 1.5px; text-transform: uppercase;
+  }
+  .m-btn-g {
+    font-size: 10px; padding: 10px 24px; border-radius: 5px;
+    border: 1px solid #222; color: #444; letter-spacing: 1.5px; text-transform: uppercase;
+  }
+  .m-scroll {
+    position: absolute; bottom: 28px; right: 28px;
+    font-size: 8px; letter-spacing: 2px; color: #222; text-transform: uppercase;
+    display: flex; align-items: center; gap: 8px;
+  }
+  .m-scroll-line { width: 24px; height: 1px; background: #222; }
+
+  /* FEATURED STRIP */
+  .m-featured {
+    display: grid;
+    grid-template-columns: 2fr 1fr 1fr;
+    border-top: 1px solid var(--border);
+  }
+  .m-feat-main {
+    padding: 24px 24px;
+    border-right: 1px solid var(--border);
+  }
+  .m-feat-label {
+    font-size: 7px; letter-spacing: 3px; text-transform: uppercase;
+    color: var(--lime); margin-bottom: 8px;
+  }
+  .m-feat-title {
+    font-size: 16px; font-weight: 800; letter-spacing: -0.5px;
+    line-height: 1.2; color: #fff; margin-bottom: 8px;
+  }
+  .m-feat-meta { font-size: 9px; color: #333; letter-spacing: 1px; }
+  .m-feat-thumb {
+    height: 80px; border-radius: 6px; margin-bottom: 12px;
+    background: var(--s2);
+    border: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .m-feat-thumb-icon { font-size: 20px; }
+
+  .m-feat-side { padding: 20px 18px; border-right: 1px solid var(--border); }
+  .m-feat-side:last-child { border-right: none; }
+  .m-feat-side-num {
+    font-size: 36px; font-weight: 900; color: #111; letter-spacing: -2px;
+    margin-bottom: 6px; line-height: 1;
+  }
+  .m-feat-side-label { font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--lime); margin-bottom: 6px; }
+  .m-feat-side-title { font-size: 11px; font-weight: 600; color: #888; line-height: 1.4; }
+
+  /* BLOG GRID */
+  .m-blog {
+    padding: 28px;
+    border-top: 1px solid var(--border);
+  }
+  .m-blog-header {
+    display: flex; justify-content: space-between; align-items: baseline;
+    margin-bottom: 18px;
+  }
+  .m-blog-title { font-size: 11px; font-weight: 700; letter-spacing: 3px; text-transform: uppercase; color: #333; }
+  .m-blog-link { font-size: 9px; color: var(--lime); letter-spacing: 1px; text-transform: uppercase; }
+  .m-blog-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+  .m-blog-card {
+    background: var(--s1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 14px;
+    position: relative;
+    overflow: hidden;
+  }
+  .m-blog-card::after {
+    content: ''; position: absolute; top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, rgba(198,255,0,0.3), transparent);
+  }
+  .m-bc-cat { font-size: 7px; letter-spacing: 2px; text-transform: uppercase; color: var(--lime); margin-bottom: 6px; }
+  .m-bc-title { font-size: 11px; font-weight: 600; color: #ccc; line-height: 1.4; margin-bottom: 8px; }
+  .m-bc-meta { font-size: 8px; color: #333; }
+
+  /* REASON SECTION */
+  .reason {
+    background: #0a0a0a;
+    border: 1px solid rgba(198,255,0,0.1);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 20px;
+  }
+  .reason-title { font-size: 13px; font-weight: 700; color: var(--lime); margin-bottom: 10px; }
+  .reason-body { font-size: 13px; color: #555; line-height: 1.7; }
+  .reason-body strong { color: #aaa; }
+
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 14px; }
+  .chip {
+    font-size: 10px; padding: 4px 10px; border-radius: 5px;
+    background: rgba(198,255,0,0.08); border: 1px solid rgba(198,255,0,0.15);
+    color: var(--lime); letter-spacing: 0.5px;
+  }
+</style>
+</head>
+<body>
+<div class="max">
+
+  <!-- HEADER -->
+  <div class="hd">
+    <div class="eyebrow">FitforIN · Nuova palette</div>
+    <h1>Nero puro. <span>Verde acido.</span></h1>
+    <p>Un solo accento. Massimo impatto. Marcelo DNA.</p>
+  </div>
+
+  <!-- PALETTE BAR -->
+  <div class="palette-bar">
+    <div class="pb-col" style="background:#000000">
+      <span class="pb-hex">#000000</span>
+      <span class="pb-name">Void</span>
+    </div>
+    <div class="pb-col" style="background:#0a0a0a">
+      <span class="pb-hex">#0A0A0A</span>
+      <span class="pb-name">Surface</span>
+    </div>
+    <div class="pb-col" style="background:#111111">
+      <span class="pb-hex">#111111</span>
+      <span class="pb-name">Elevated</span>
+    </div>
+    <div class="pb-col" style="background:#C6FF00; flex:2">
+      <span class="pb-hex" style="color:#000">#C6FF00</span>
+      <span class="pb-name" style="color:#00000088">Acid Lime — accento unico</span>
+    </div>
+    <div class="pb-col" style="background:#ffffff; flex: 0.8">
+      <span class="pb-hex" style="color:#000">#FFF</span>
+      <span class="pb-name" style="color:#00000055">White</span>
+    </div>
+    <div class="pb-col" style="background:#555555">
+      <span class="pb-hex">#555</span>
+      <span class="pb-name">Muted</span>
+    </div>
+  </div>
+
+  <!-- SWATCHES -->
+  <div class="sl">Token di colore</div>
+  <div class="sw-row">
+    <div class="sw">
+      <div class="sw-color" style="background:#000000; border-bottom:1px solid #1a1a1a">
+        <span class="sw-badge">Background</span>
+      </div>
+      <div class="sw-body"><div class="sw-hex">#000000</div><div class="sw-name">Void Black</div></div>
+    </div>
+    <div class="sw">
+      <div class="sw-color" style="background:#0a0a0a">
+        <span class="sw-badge">Surface</span>
+      </div>
+      <div class="sw-body"><div class="sw-hex">#0A0A0A</div><div class="sw-name">Near Black</div></div>
+    </div>
+    <div class="sw">
+      <div class="sw-color" style="background:#111111">
+        <span class="sw-badge">Card</span>
+      </div>
+      <div class="sw-body"><div class="sw-hex">#111111</div><div class="sw-name">Elevated</div></div>
+    </div>
+    <div class="sw">
+      <div class="sw-color" style="background:#C6FF00">
+        <span class="sw-badge" style="color:#000; background:rgba(0,0,0,0.2)">Primary</span>
+      </div>
+      <div class="sw-body"><div class="sw-hex">#C6FF00</div><div class="sw-name">Acid Lime</div></div>
+    </div>
+    <div class="sw">
+      <div class="sw-color" style="background:#ffffff">
+        <span class="sw-badge" style="color:#000; background:rgba(0,0,0,0.1)">Text</span>
+      </div>
+      <div class="sw-body"><div class="sw-hex">#FFFFFF</div><div class="sw-name">White</div></div>
+    </div>
+    <div class="sw">
+      <div class="sw-color" style="background:#555555">
+        <span class="sw-badge">Muted</span>
+      </div>
+      <div class="sw-body"><div class="sw-hex">#555555</div><div class="sw-name">Dim</div></div>
+    </div>
+  </div>
+
+  <!-- LIVE MOCKUP -->
+  <div class="sl">Preview live — homepage</div>
+  <div class="mock">
+
+    <!-- NAV -->
+    <div class="m-nav">
+      <span class="m-logo">FITFORIN</span>
+      <div class="m-links">
+        <span>Training</span>
+        <span>Alimentazione</span>
+        <span>Basket Lab</span>
+        <span>Medicina</span>
+      </div>
+      <span class="m-cta">Blog →</span>
+    </div>
+
+    <!-- HERO -->
+    <div class="m-hero">
+      <div class="m-hero-glow"></div>
+      <div class="m-tag">La Scienza applicata allo Sport</div>
+      <div class="m-h1">
+        SPORT<br>
+        <span class="lime">SCIENCE</span><br>
+        <span class="out">BLOG</span>
+      </div>
+      <p class="m-p">Articoli tecnici su allenamento, nutrizione e performance. Per atleti seri.</p>
+      <div class="m-btns">
+        <span class="m-btn-p">Leggi gli articoli</span>
+        <span class="m-btn-g">Tutte le categorie</span>
+      </div>
+      <div class="m-scroll">
+        <div class="m-scroll-line"></div>
+        Scroll
+      </div>
+    </div>
+
+    <!-- FEATURED -->
+    <div class="m-featured">
+      <div class="m-feat-main">
+        <div class="m-feat-thumb"><span class="m-feat-thumb-icon">🧠</span></div>
+        <div class="m-feat-label">🔥 In evidenza</div>
+        <div class="m-feat-title">Il cervello del playmaker</div>
+        <div class="m-feat-meta">Decision making · Carico cognitivo · Basket</div>
+      </div>
+      <div class="m-feat-side">
+        <div class="m-feat-side-num">02</div>
+        <div class="m-feat-side-label">Basket Lab</div>
+        <div class="m-feat-side-title">Il Quiet Eye nel basket</div>
+      </div>
+      <div class="m-feat-side">
+        <div class="m-feat-side-num">03</div>
+        <div class="m-feat-side-label">Training</div>
+        <div class="m-feat-side-title">Allenare il gesto o l'atleta?</div>
+      </div>
+    </div>
+
+    <!-- BLOG GRID -->
+    <div class="m-blog">
+      <div class="m-blog-header">
+        <span class="m-blog-title">Ultimi articoli</span>
+        <span class="m-blog-link">Vedi tutti →</span>
+      </div>
+      <div class="m-blog-grid">
+        <div class="m-blog-card">
+          <div class="m-bc-cat">💪 Training</div>
+          <div class="m-bc-title">Post-Activation Potentiation</div>
+          <div class="m-bc-meta">6 min lettura</div>
+        </div>
+        <div class="m-blog-card">
+          <div class="m-bc-cat">🧬 Scienza</div>
+          <div class="m-bc-title">Epigenetica e sport</div>
+          <div class="m-bc-meta">10 min lettura</div>
+        </div>
+        <div class="m-blog-card">
+          <div class="m-bc-cat">🏀 Basket Lab</div>
+          <div class="m-bc-title">Decelerazione nel basket</div>
+          <div class="m-bc-meta">5 min lettura</div>
+        </div>
+        <div class="m-blog-card">
+          <div class="m-bc-cat">🏋️ Forza</div>
+          <div class="m-bc-title">ACSM: nuove linee guida forza</div>
+          <div class="m-bc-meta">8 min lettura</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHY -->
+  <div class="reason">
+    <div class="reason-title">Perché nero + verde acido</div>
+    <div class="reason-body">
+      <strong>Marcelo usa UN solo accento forte su nero puro</strong> — mai gradienti complicati. Il verde acido <strong>#C6FF00</strong> è la versione neon del verde originale del logo (<strong>#02CA02</strong>). Stesso DNA cromatico, portato all'estremo. Nero assoluto + lime = contrasto massimo, leggibilità perfetta, carattere unico nel panorama fitness italiano.
+    </div>
+    <div class="chips">
+      <span class="chip">#000000 Void Black</span>
+      <span class="chip">#C6FF00 Acid Lime</span>
+      <span class="chip">#FFFFFF White</span>
+      <span class="chip">1 accento · 0 gradienti</span>
+      <span class="chip">Marcelo DNA</span>
+    </div>
+  </div>
+
+</div>
+</body>
+</html>

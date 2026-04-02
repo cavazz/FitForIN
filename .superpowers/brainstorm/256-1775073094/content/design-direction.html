@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FitforIN — Design Direction</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0a0a0a;
+    color: #fff;
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100vh;
+    padding: 40px 24px 60px;
+  }
+  .header {
+    text-align: center;
+    margin-bottom: 48px;
+  }
+  .eyebrow {
+    font-size: 11px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #666;
+    margin-bottom: 12px;
+  }
+  h1 {
+    font-size: clamp(28px, 4vw, 42px);
+    font-weight: 700;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #fff 0%, #888 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .subtitle {
+    margin-top: 10px;
+    font-size: 15px;
+    color: #555;
+  }
+
+  .cards-row {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 20px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .card {
+    border: 1px solid #1e1e1e;
+    border-radius: 16px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    background: #111;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    border-color: #333;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+  }
+  .card.selected {
+    border-color: #fff;
+    box-shadow: 0 0 0 1px #fff, 0 20px 60px rgba(255,255,255,0.05);
+  }
+
+  /* ── MOCKUP PREVIEWS ── */
+  .preview {
+    height: 260px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  /* DIRECTION A — Dark Cinematic (Charles Leclerc style) */
+  .preview-a {
+    background: #000;
+  }
+  .preview-a .bg-grad {
+    position: absolute; inset: 0;
+    background: linear-gradient(160deg, #0d0d0d 0%, #000 60%, #111827 100%);
+  }
+  .preview-a .accent-line {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, transparent, #e2c97e, transparent);
+  }
+  .preview-a .nav {
+    position: absolute;
+    top: 18px; left: 0; right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 24px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #888;
+    text-transform: uppercase;
+  }
+  .preview-a .logo {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 3px;
+    color: #e2c97e;
+  }
+  .preview-a .hero-text {
+    position: absolute;
+    top: 50%;
+    left: 24px;
+    transform: translateY(-60%);
+  }
+  .preview-a .eyebrow-tag {
+    font-size: 8px;
+    letter-spacing: 3px;
+    color: #e2c97e;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  .preview-a .big-title {
+    font-size: 28px;
+    font-weight: 800;
+    letter-spacing: -1px;
+    line-height: 1.1;
+    color: #fff;
+    font-style: italic;
+  }
+  .preview-a .sub {
+    margin-top: 8px;
+    font-size: 9px;
+    color: #555;
+    letter-spacing: 1px;
+    max-width: 180px;
+  }
+  .preview-a .cta-btn {
+    display: inline-block;
+    margin-top: 14px;
+    padding: 6px 14px;
+    border: 1px solid #e2c97e;
+    border-radius: 2px;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #e2c97e;
+    text-transform: uppercase;
+  }
+  .preview-a .decor-line {
+    position: absolute;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 80px;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #e2c97e33);
+  }
+  .preview-a .grid-cards {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    display: flex;
+    gap: 1px;
+    height: 55px;
+    background: #111;
+  }
+  .preview-a .mini-card {
+    flex: 1;
+    background: #0d0d0d;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 7px;
+    color: #333;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    border-top: 1px solid #1a1a1a;
+  }
+  .preview-a .mini-card:hover { background: #141414; }
+
+  /* DIRECTION B — Scroll Storytelling (Lando Norris style) */
+  .preview-b {
+    background: #050505;
+  }
+  .preview-b .noise {
+    position: absolute; inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E");
+    opacity: 0.5;
+  }
+  .preview-b .big-num {
+    position: absolute;
+    top: -20px; left: 10px;
+    font-size: 160px;
+    font-weight: 900;
+    color: #ffffff05;
+    letter-spacing: -10px;
+    user-select: none;
+    line-height: 1;
+  }
+  .preview-b .pill-tag {
+    position: absolute;
+    top: 20px; left: 20px;
+    background: #ff3b30;
+    color: #fff;
+    font-size: 7px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 4px 10px;
+    border-radius: 100px;
+  }
+  .preview-b .main-title {
+    position: absolute;
+    top: 50px;
+    left: 20px; right: 20px;
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -1.5px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .preview-b .main-title span {
+    color: #ff3b30;
+  }
+  .preview-b .scroll-hint {
+    position: absolute;
+    bottom: 70px;
+    left: 20px;
+    font-size: 8px;
+    letter-spacing: 2px;
+    color: #444;
+    text-transform: uppercase;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .preview-b .scroll-line {
+    width: 30px;
+    height: 1px;
+    background: #333;
+  }
+  .preview-b .featured-strip {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 65px;
+    display: flex;
+    gap: 0;
+    overflow: hidden;
+  }
+  .preview-b .feat-item {
+    flex: 1;
+    border-left: 1px solid #1a1a1a;
+    padding: 10px 12px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  .preview-b .feat-label {
+    font-size: 6px;
+    letter-spacing: 2px;
+    color: #ff3b30;
+    text-transform: uppercase;
+  }
+  .preview-b .feat-title {
+    font-size: 8px;
+    color: #aaa;
+    line-height: 1.3;
+  }
+  .preview-b .counter {
+    position: absolute;
+    top: 20px; right: 20px;
+    font-size: 8px;
+    color: #333;
+    font-weight: 700;
+    letter-spacing: 1px;
+  }
+
+  /* DIRECTION C — Bold Experimental (Marcelo Design X style) */
+  .preview-c {
+    background: #0c0c0f;
+  }
+  .preview-c .grid-bg {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.02) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.02) 1px, transparent 1px);
+    background-size: 30px 30px;
+  }
+  .preview-c .diagonal-accent {
+    position: absolute;
+    top: 0; right: 0;
+    width: 160px; height: 160px;
+    background: linear-gradient(135deg, transparent 50%, #7c3aed22 50%);
+  }
+  .preview-c .tag-row {
+    position: absolute;
+    top: 16px; left: 16px;
+    display: flex;
+    gap: 6px;
+  }
+  .preview-c .tag {
+    border: 1px solid #2a2a3a;
+    border-radius: 4px;
+    padding: 3px 8px;
+    font-size: 7px;
+    letter-spacing: 1px;
+    color: #555;
+    text-transform: uppercase;
+  }
+  .preview-c .tag.active {
+    border-color: #7c3aed;
+    color: #a78bfa;
+    background: #7c3aed11;
+  }
+  .preview-c .offset-title {
+    position: absolute;
+    top: 45px;
+    left: -5px;
+    right: 0;
+    padding: 0 16px;
+  }
+  .preview-c .line1 {
+    font-size: 10px;
+    font-weight: 400;
+    color: #555;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+  }
+  .preview-c .line2 {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+    text-transform: uppercase;
+  }
+  .preview-c .line2 .outline {
+    -webkit-text-stroke: 1px rgba(255,255,255,0.3);
+    color: transparent;
+  }
+  .preview-c .line3 {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -2px;
+    line-height: 1;
+    text-transform: uppercase;
+    color: #7c3aed;
+  }
+  .preview-c .broken-card {
+    position: absolute;
+    bottom: 12px; right: 12px;
+    width: 120px;
+    background: #16161f;
+    border: 1px solid #2a2a3a;
+    border-radius: 8px;
+    padding: 10px;
+    transform: rotate(2deg);
+  }
+  .preview-c .broken-card .bc-tag {
+    font-size: 6px;
+    color: #7c3aed;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 4px;
+  }
+  .preview-c .broken-card .bc-title {
+    font-size: 9px;
+    color: #ccc;
+    line-height: 1.4;
+    font-weight: 600;
+  }
+  .preview-c .bottom-bar {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, #7c3aed, #ec4899, #f59e0b);
+  }
+  .preview-c .dot-cluster {
+    position: absolute;
+    bottom: 14px; left: 16px;
+    display: flex;
+    gap: 4px;
+  }
+  .preview-c .dot {
+    width: 5px; height: 5px;
+    border-radius: 50%;
+  }
+
+  /* ── CARD LABELS ── */
+  .card-info {
+    padding: 20px 22px 22px;
+    border-top: 1px solid #1a1a1a;
+  }
+  .direction-label {
+    font-size: 9px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: #555;
+    margin-bottom: 6px;
+  }
+  .direction-name {
+    font-size: 18px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 6px;
+    letter-spacing: -0.5px;
+  }
+  .direction-desc {
+    font-size: 12px;
+    color: #555;
+    line-height: 1.6;
+    margin-bottom: 14px;
+  }
+  .tags-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+  }
+  .tag-chip {
+    font-size: 10px;
+    padding: 3px 9px;
+    border-radius: 4px;
+    background: #1a1a1a;
+    color: #666;
+    letter-spacing: 0.5px;
+  }
+  .tag-chip.hi { background: #1a1a1a; color: #888; border: 1px solid #2a2a2a; }
+
+  .selected-badge {
+    display: none;
+    margin-top: 12px;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #fff;
+    text-transform: uppercase;
+    text-align: center;
+    padding: 6px;
+    border-top: 1px solid #2a2a2a;
+  }
+  .card.selected .selected-badge { display: block; }
+
+  /* ── FOOTER NOTE ── */
+  .footer-note {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 12px;
+    color: #333;
+  }
+  .footer-note strong { color: #555; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="eyebrow">FitforIN · Redesign 2025</div>
+  <h1>Scegli la direzione di design</h1>
+  <p class="subtitle">3 concept visivi — seleziona quello che risuona di più</p>
+</div>
+
+<div class="cards-row">
+
+  <!-- DIRECTION A: Dark Cinematic -->
+  <div class="card" data-choice="a" onclick="toggleSelect(this)">
+    <div class="preview preview-a">
+      <div class="bg-grad"></div>
+      <div class="accent-line"></div>
+      <div class="nav">
+        <span class="logo">FITFORIN</span>
+        <span>Blog · Training · Alimentazione</span>
+      </div>
+      <div class="hero-text">
+        <div class="eyebrow-tag">La scienza dello sport</div>
+        <div class="big-title">Allenati<br>con<br>Metodo.</div>
+        <div class="sub">Articoli scientifici sul fitness, nutrizione e performance sportiva.</div>
+        <div class="cta-btn">Leggi gli articoli →</div>
+      </div>
+      <div class="decor-line"></div>
+      <div class="grid-cards">
+        <div class="mini-card">Training</div>
+        <div class="mini-card">Alimentazione</div>
+        <div class="mini-card">Sport Science</div>
+        <div class="mini-card">Basket Lab</div>
+      </div>
+    </div>
+    <div class="card-info">
+      <div class="direction-label">Opzione A</div>
+      <div class="direction-name">Dark Cinematic</div>
+      <div class="direction-desc">Eleganza premium ispirata a Charles Leclerc. Dark assoluto, oro, tipografia serif audace. Lusso discreto, autorevolezza immediata.</div>
+      <div class="tags-row">
+        <span class="tag-chip hi">Dark luxury</span>
+        <span class="tag-chip hi">Gold accents</span>
+        <span class="tag-chip hi">Serif headings</span>
+        <span class="tag-chip hi">Minimal UI</span>
+      </div>
+      <div class="selected-badge">✓ Selezionata</div>
+    </div>
+  </div>
+
+  <!-- DIRECTION B: Scroll Storytelling -->
+  <div class="card" data-choice="b" onclick="toggleSelect(this)">
+    <div class="preview preview-b">
+      <div class="noise"></div>
+      <div class="big-num">01</div>
+      <div class="pill-tag">⚡ Featured</div>
+      <div class="counter">01 / 08</div>
+      <div class="main-title">BREAK<br><span>YOUR</span><br>LIMITS.</div>
+      <div class="scroll-hint">
+        <div class="scroll-line"></div>
+        Scroll per scoprire
+      </div>
+      <div class="featured-strip">
+        <div class="feat-item">
+          <div class="feat-label">Training</div>
+          <div class="feat-title">Post-Activation Potentiation nel basket</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-label">Nutrizione</div>
+          <div class="feat-title">Epigenetica e performance sportiva</div>
+        </div>
+        <div class="feat-item">
+          <div class="feat-label">Scienza</div>
+          <div class="feat-title">Il cervello del playmaker</div>
+        </div>
+      </div>
+    </div>
+    <div class="card-info">
+      <div class="direction-label">Opzione B</div>
+      <div class="direction-name">Scroll Storytelling</div>
+      <div class="direction-desc">Narrazione dinamica ispirata a Lando Norris. Sezioni a schermo intero, numeri grandi, rosso energia. L'utente viene condotto in un viaggio.</div>
+      <div class="tags-row">
+        <span class="tag-chip hi">Fullscreen sections</span>
+        <span class="tag-chip hi">Red accent</span>
+        <span class="tag-chip hi">Big typography</span>
+        <span class="tag-chip hi">GSAP scroll</span>
+      </div>
+      <div class="selected-badge">✓ Selezionata</div>
+    </div>
+  </div>
+
+  <!-- DIRECTION C: Bold Experimental -->
+  <div class="card" data-choice="c" onclick="toggleSelect(this)">
+    <div class="preview preview-c">
+      <div class="grid-bg"></div>
+      <div class="diagonal-accent"></div>
+      <div class="tag-row">
+        <span class="tag active">Tutti</span>
+        <span class="tag">Training</span>
+        <span class="tag">Nutrition</span>
+        <span class="tag">Science</span>
+      </div>
+      <div class="offset-title">
+        <div class="line1">Science meets</div>
+        <div class="line2"><span class="outline">SPORT</span></div>
+        <div class="line3">PERFORMANCE</div>
+      </div>
+      <div class="broken-card">
+        <div class="bc-tag">📖 Basket Lab</div>
+        <div class="bc-title">Il Quiet Eye nel basket e la visione periferica</div>
+      </div>
+      <div class="dot-cluster">
+        <div class="dot" style="background:#7c3aed"></div>
+        <div class="dot" style="background:#ec4899"></div>
+        <div class="dot" style="background:#f59e0b"></div>
+      </div>
+      <div class="bottom-bar"></div>
+    </div>
+    <div class="card-info">
+      <div class="direction-label">Opzione C</div>
+      <div class="direction-name">Bold Experimental</div>
+      <div class="direction-desc">Griglia rotta, elementi sfalsati, palette viola-fucsia. Ispirato a Marcelo Design X. Il design più audace e originale dei tre.</div>
+      <div class="tags-row">
+        <span class="tag-chip hi">Broken grid</span>
+        <span class="tag-chip hi">Purple/Pink</span>
+        <span class="tag-chip hi">Experimental</span>
+        <span class="tag-chip hi">Marcelo style</span>
+      </div>
+      <div class="selected-badge">✓ Selezionata</div>
+    </div>
+  </div>
+
+</div>
+
+<p class="footer-note">Clicca su un concept per selezionarlo · Poi rispondi nel terminale</p>
+
+<script>
+function toggleSelect(el) {
+  document.querySelectorAll('.card').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  // record selection
+  if (window.__recordChoice) window.__recordChoice(el.dataset.choice, el.querySelector('.direction-name').textContent);
+}
+</script>
+
+</body>
+</html>
