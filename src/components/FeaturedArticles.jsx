@@ -1,18 +1,28 @@
 import { Link } from 'react-router-dom'
 import { featuredArticles } from '../data/articles'
+import { getArticleImage } from '../data/images'
 
 export default function FeaturedArticles() {
   const [main, ...rest] = featuredArticles
 
   return (
-    <section style={{ background: 'linear-gradient(135deg,#0e0e0e 0%,#1a1a1a 100%)' }}>
+    <section style={{ background: 'linear-gradient(135deg,#1A1714 0%,#1E1A14 100%)' }}>
       {/* header */}
       <div className="flex justify-between items-center px-7 pt-5">
-        <span className="flex items-center gap-3 text-[8px] tracking-[0.4em] uppercase text-muted">
-          <span className="text-[#1a1a1a] font-bold">01</span>
+        <span
+          className="flex items-center gap-3 text-[8px] tracking-[0.4em] uppercase"
+          style={{ color: '#4A3828' }}
+        >
+          <span className="font-bold" style={{ color: '#252018' }}>01</span>
           In evidenza
         </span>
-        <Link to="/" className="text-[9px] tracking-[0.1em] uppercase text-muted hover:text-dim transition-colors">
+        <Link
+          to="/"
+          className="text-[9px] tracking-[0.1em] uppercase transition-colors"
+          style={{ color: '#4A3828' }}
+          onMouseEnter={e => e.currentTarget.style.color = '#C9A052'}
+          onMouseLeave={e => e.currentTarget.style.color = '#4A3828'}
+        >
           Vedi tutti →
         </Link>
       </div>
@@ -25,61 +35,79 @@ export default function FeaturedArticles() {
           gridTemplateColumns: '5fr 3fr',
           gridTemplateRows: 'auto auto',
           gap: '1px',
-          background: 'rgba(255,255,255,0.04)',
+          background: 'rgba(201,160,82,0.07)',
         }}
       >
         {/* articolo grande — span 2 righe */}
         <Link
           to={`/articolo/${main.slug}`}
-          className="block p-7 relative overflow-hidden transition-colors"
-          style={{ background: '#0c0c0c', gridRow: 'span 2' }}
+          className="block relative overflow-hidden group"
+          style={{ background: '#161412', gridRow: 'span 2' }}
         >
-          {/* numero sfondo */}
-          <div
-            aria-hidden="true"
-            className="text-[100px] font-black leading-none mb-[-20px]"
-            style={{
-              background: 'linear-gradient(180deg,rgba(255,255,255,0.06) 0%,transparent 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              letterSpacing: '-6px',
-            }}
-          >
-            01
+          {/* Cover image */}
+          <div className="relative h-[200px] overflow-hidden">
+            <img
+              src={getArticleImage(main.slug, main.category)}
+              alt={main.title}
+              className="img-cover transition-transform duration-700 group-hover:scale-105"
+              loading="lazy"
+            />
+            <div
+              className="absolute inset-0"
+              style={{ background: 'linear-gradient(to bottom, rgba(22,20,18,0.2) 0%, rgba(22,20,18,0.85) 100%)' }}
+            />
+            {/* categoria badge */}
+            <span
+              className="absolute bottom-3 left-5 text-[7px] tracking-[0.25em] uppercase px-2 py-1 rounded"
+              style={{ background: 'rgba(201,160,82,0.15)', color: '#C9A052', backdropFilter: 'blur(4px)' }}
+            >
+              {main.category}
+            </span>
           </div>
 
-          {/* immagine placeholder */}
-          <div
-            className="h-[120px] rounded-lg mb-4 flex items-center justify-center text-3xl"
-            style={{
-              background: 'linear-gradient(135deg,#141414,#1c1c1c)',
-              border: '1px solid rgba(255,255,255,0.05)',
-            }}
-          >
-            {main.emoji}
+          <div className="p-5">
+            {/* numero sfondo */}
+            <div
+              aria-hidden="true"
+              className="text-[60px] font-black leading-none mb-[-12px]"
+              style={{
+                background: 'linear-gradient(180deg,rgba(201,160,82,0.07) 0%,transparent 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                letterSpacing: '-4px',
+              }}
+            >
+              01
+            </div>
+
+            <h2
+              className="text-[15px] font-extrabold leading-[1.2] mb-3 mt-2"
+              style={{
+                background: 'linear-gradient(135deg,#E8DCBA 30%,#8B6830 100%)',
+                WebkitBackgroundClip: 'text',
+                WebkitTextFillColor: 'transparent',
+                backgroundClip: 'text',
+                letterSpacing: '-0.03em',
+              }}
+            >
+              {main.title}
+            </h2>
+            <p className="text-[10px] leading-[1.6] mb-4" style={{ color: '#907050' }}>
+              {main.excerpt}
+            </p>
+            <span
+              className="text-[8px] font-bold tracking-[0.2em] uppercase pb-0.5 transition-colors group-hover:text-gold-l"
+              style={{ color: '#C9A052', borderBottom: '1px solid rgba(201,160,82,0.3)' }}
+            >
+              Leggi l'articolo
+            </span>
           </div>
 
-          <div className="text-[7px] tracking-[0.3em] uppercase text-muted mb-2">
-            {main.category}
-          </div>
-          <h2
-            className="text-[15px] font-extrabold leading-[1.2] mb-3"
-            style={{
-              background: 'linear-gradient(135deg,#fff 30%,#888 100%)',
-              WebkitBackgroundClip: 'text',
-              WebkitTextFillColor: 'transparent',
-              backgroundClip: 'text',
-              letterSpacing: '-0.03em',
-            }}
-          >
-            {main.title}
-          </h2>
-          <p className="text-[10px] text-[#333] leading-[1.6] mb-4">{main.excerpt}</p>
-          <span className="text-[8px] font-bold tracking-[0.2em] uppercase text-dim border-b border-muted pb-0.5">
-            Leggi l'articolo
-          </span>
-          <span className="absolute bottom-7 right-7 text-[22px] text-[#1a1a1a]">↗</span>
+          <span
+            className="absolute bottom-5 right-5 text-[22px] opacity-0 group-hover:opacity-100 transition-opacity"
+            style={{ color: '#C9A052' }}
+          >↗</span>
         </Link>
 
         {/* articoli secondari */}
@@ -87,26 +115,50 @@ export default function FeaturedArticles() {
           <Link
             key={article.id}
             to={`/articolo/${article.slug}`}
-            className="flex flex-col justify-between p-5 relative transition-colors"
-            style={{ background: '#0a0a0a' }}
-            onMouseEnter={e => e.currentTarget.style.background = '#0e0e0e'}
-            onMouseLeave={e => e.currentTarget.style.background = '#0a0a0a'}
+            className="flex flex-col group relative overflow-hidden"
+            style={{ background: '#141210' }}
           >
-            <span className="absolute top-5 right-5 text-[14px] text-[#1e1e1e]">↗</span>
-            <div>
-              <div className="text-[11px] font-black text-[#1e1e1e] tracking-[0.1em] mb-3 font-mono">
-                — 0{idx + 2}
-              </div>
-              <div className="text-[7px] tracking-[0.2em] uppercase text-muted mb-1.5">
-                {article.category}
-              </div>
-              <h3 className="text-[13px] font-bold text-[#666] leading-[1.3]">
-                {article.title}
-              </h3>
+            {/* Image */}
+            <div className="relative h-[110px] overflow-hidden">
+              <img
+                src={getArticleImage(article.slug, article.category)}
+                alt={article.title}
+                className="img-cover transition-transform duration-700 group-hover:scale-105"
+                loading="lazy"
+              />
+              <div
+                className="absolute inset-0"
+                style={{ background: 'linear-gradient(to bottom, rgba(20,18,16,0.15), rgba(20,18,16,0.75))' }}
+              />
             </div>
-            <div className="text-[8px] tracking-[0.1em] uppercase text-[#222]">
-              {article.readTime} min lettura
+
+            <div className="flex flex-col justify-between flex-1 p-4">
+              <div>
+                <div
+                  className="text-[11px] font-black tracking-[0.1em] mb-2 font-mono"
+                  style={{ color: '#252018' }}
+                >
+                  — 0{idx + 2}
+                </div>
+                <div className="text-[8px] tracking-[0.2em] uppercase mb-1.5 font-semibold" style={{ color: 'rgba(201,160,82,0.48)' }}>
+                  {article.category}
+                </div>
+                <h3
+                  className="text-[12px] font-bold leading-[1.3] transition-colors group-hover:text-[#E8DCBA]"
+                  style={{ color: '#B89060' }}
+                >
+                  {article.title}
+                </h3>
+              </div>
+              <div className="text-[9px] tracking-[0.1em] uppercase mt-3" style={{ color: 'rgba(201,160,82,0.28)' }}>
+                {article.readTime} min lettura
+              </div>
             </div>
+
+            <span
+              className="absolute top-4 right-4 text-[14px] opacity-0 group-hover:opacity-100 transition-opacity"
+              style={{ color: '#C9A052' }}
+            >↗</span>
           </Link>
         ))}
       </div>

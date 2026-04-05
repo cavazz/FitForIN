@@ -4,14 +4,17 @@ export default {
   theme: {
     extend: {
       colors: {
-        'bg':       '#080808',
-        'nav':      '#000000',
-        's1':       '#111111',
-        's2':       '#0c0c0c',
-        'card':     '#161616',
-        'elevated': '#1c1c1c',
-        'dim':      '#888888',
-        'muted':    '#3a3a3a',
+        'bg':       '#161412',
+        'nav':      '#111009',
+        's1':       '#1A1714',
+        's2':       '#161412',
+        'card':     '#1E1A14',
+        'elevated': '#252018',
+        'gold':     '#C9A052',
+        'gold-l':   '#E8DCBA',
+        'gold-d':   '#7A5E28',
+        'dim':      '#8B7040',
+        'muted':    '#4A3828',
       },
       fontFamily: {
         sans: ['Inter', '-apple-system', 'sans-serif'],

@@ -1,6 +1,7 @@
 const ITEMS = [
   'Training', 'Alimentazione', 'Basket Lab',
-  'Medicina Sportiva', "Scienza dell'Esercizio", 'Stretching', 'Preparazione Fisica',
+  'Medicina Sportiva', "Scienza dell'Esercizio", 'Stretching',
+  'Preparazione Fisica', 'Biomeccanica', 'Core Stability', 'Recovery',
 ]
 
 export default function Ticker() {
@@ -10,22 +11,25 @@ export default function Ticker() {
     <div
       className="overflow-hidden py-[10px]"
       style={{
-        background: '#111',
-        borderTop: '1px solid rgba(255,255,255,0.04)',
-        borderBottom: '1px solid rgba(255,255,255,0.04)',
+        background: '#1A1714',
+        borderTop:    '1px solid rgba(201,160,82,0.08)',
+        borderBottom: '1px solid rgba(201,160,82,0.08)',
       }}
     >
       <div
         className="flex whitespace-nowrap"
-        style={{ animation: 'ticker 18s linear infinite' }}
+        style={{ animation: 'ticker 22s linear infinite' }}
       >
         {doubled.map((item, i) => (
           <span
             key={i}
-            className="inline-flex items-center gap-3 px-7 text-[9px] tracking-[0.3em] uppercase text-muted flex-shrink-0"
-            style={{ borderRight: '1px solid #1a1a1a' }}
+            className="inline-flex items-center gap-3 px-7 text-[9px] tracking-[0.3em] uppercase flex-shrink-0"
+            style={{
+              color: '#3A2C18',
+              borderRight: '1px solid rgba(201,160,82,0.06)',
+            }}
           >
-            <span className="text-[5px] text-[#1e1e1e]">◆</span>
+            <span style={{ color: '#C9A052', fontSize: '5px' }}>◆</span>
             {item}
           </span>
         ))}
