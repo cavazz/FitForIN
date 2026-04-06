@@ -92,22 +92,26 @@ export default function Navbar() {
 
   const isActive = (to) => location.pathname === to
 
-  /* altezze animate desktop */
-  const NAV_H  = scrolled ? 68   : 120
-  const LOGO_H = scrolled ? 52   : 100
+  /* Il file logo ha ~64% di spazio bianco (32% top + 32% bottom).
+     VISIBLE = altezza del marchio visibile che vogliamo mostrare.
+     RAW     = altezza a cui renderizziamo l'immagine (VISIBLE / 0.36 ≈ ×2.78).
+     Il wrapper taglia il whitespace con overflow:hidden + flex center. */
+  const VISIBLE = scrolled ? 50  : 78
+  const RAW     = Math.round(VISIBLE * 2.78)
+  const NAV_H   = scrolled ? 70  : 108
 
   return (
     <>
       {/* ══════════════════════════════════════════
-          GRADIENTE SUPERIORE — rende visibile la
-          navbar anche su immagini chiare
+          GRADIENTE superiore — navbar visibile
+          su qualsiasi sfondo prima dello scroll
       ══════════════════════════════════════════ */}
       <div
         aria-hidden
         className="fixed top-0 left-0 right-0 z-40 pointer-events-none"
         style={{
-          height: 200,
-          background: 'linear-gradient(180deg, rgba(0,0,0,0.55) 0%, transparent 100%)',
+          height: 220,
+          background: 'linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%)',
           opacity: scrolled ? 0 : 1,
           transition: 'opacity 0.4s',
         }}
@@ -131,19 +135,32 @@ export default function Navbar() {
           paddingRight: 'clamp(20px, 3vw, 44px)',
         }}
       >
-        {/* LOGO */}
+        {/* LOGO — wrapper che taglia il whitespace del file */}
         <Link to="/" onClick={() => setOpen(false)} aria-label="FitforIN"
           style={{ lineHeight:0, flexShrink:0, transition:'opacity 0.2s' }}
           onMouseEnter={e => e.currentTarget.style.opacity='0.72'}
           onMouseLeave={e => e.currentTarget.style.opacity='1'}
         >
-          <motion.img
-            src="/logo.webp" alt="FIT FORIN"
-            animate={{ height: LOGO_H }}
-            transition={{ duration:0.4, ease:[0.25,0.1,0.25,1] }}
-            style={{ width:'auto', objectFit:'contain', display:'block' }}
-            draggable={false}
-          />
+          <div style={{
+            height: VISIBLE,
+            overflow: 'hidden',
+            display: 'flex',
+            alignItems: 'center',
+            transition: 'height 0.4s cubic-bezier(0.25,0.1,0.25,1)',
+            flexShrink: 0,
+          }}>
+            <img
+              src="/logo.svg" alt="FIT FORIN"
+              style={{
+                height: RAW,
+                width: 'auto',
+                display: 'block',
+                flexShrink: 0,
+                transition: 'height 0.4s cubic-bezier(0.25,0.1,0.25,1)',
+              }}
+              draggable={false}
+            />
+          </div>
         </Link>
 
         {/* DESKTOP LINKS — lg+ */}
@@ -182,10 +199,10 @@ export default function Navbar() {
               background:'radial-gradient(ellipse 90% 55% at 50% -15%, rgba(201,160,82,0.08) 0%, transparent 65%)',
             }} />
 
-            {/* header: logo + X (stessa altezza della barra) */}
+            {/* header: logo + X */}
             <div className="flex items-center justify-between flex-shrink-0 relative z-10"
               style={{
-                height: 120,
+                height: 108,
                 paddingLeft:  'clamp(20px,3vw,44px)',
                 paddingRight: 'clamp(20px,3vw,44px)',
                 borderBottom: '1px solid rgba(201,160,82,0.09)',
@@ -193,10 +210,12 @@ export default function Navbar() {
             >
               <Reveal delay={0}>
                 <Link to="/" onClick={() => setOpen(false)} style={{ lineHeight:0 }}>
-                  <img src="/logo.webp" alt="FIT FORIN"
-                    style={{ height:100, width:'auto', objectFit:'contain', display:'block' }}
-                    draggable={false}
-                  />
+                  <div style={{ height:78, overflow:'hidden', display:'flex', alignItems:'center' }}>
+                    <img src="/logo.svg" alt="FIT FORIN"
+                      style={{ height:217, width:'auto', display:'block' }}
+                      draggable={false}
+                    />
+                  </div>
                 </Link>
               </Reveal>
               <MenuToggle open={open} onClick={() => setOpen(false)} />

@@ -25,7 +25,7 @@ export default function BlogGrid() {
         {/* header */}
         <div className="flex justify-between items-end mb-7">
           <div>
-            <div className="text-[9px] font-bold tracking-[0.2em] font-mono mb-1" style={{ color: '#1A1208' }}>
+            <div className="text-[9px] font-bold tracking-[0.2em] font-mono mb-1" style={{ color: 'rgba(201,160,82,0.25)' }}>
               — 02
             </div>
             <h2
@@ -45,9 +45,9 @@ export default function BlogGrid() {
           <Link
             to="/"
             className="text-[9px] tracking-[0.1em] uppercase self-end transition-colors"
-            style={{ color: '#4A3828' }}
+            style={{ color: 'rgba(201,160,82,0.38)' }}
             onMouseEnter={e => e.currentTarget.style.color = '#C9A052'}
-            onMouseLeave={e => e.currentTarget.style.color = '#4A3828'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(201,160,82,0.38)'}
           >
             Vedi tutti →
           </Link>
@@ -55,8 +55,7 @@ export default function BlogGrid() {
 
         <motion.div
           layout
-          className="grid gap-3"
-          style={{ gridTemplateColumns: 'repeat(3,1fr)' }}
+          className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3"
         >
           <AnimatePresence>
             {filtered.map((article, idx) => {
@@ -69,7 +68,7 @@ export default function BlogGrid() {
                   animate={{ opacity: 1, y: 0 }}
                   exit={{ opacity: 0, y: -10 }}
                   transition={{ duration: 0.3, delay: idx * 0.04 }}
-                  style={isWide ? { gridColumn: 'span 2' } : {}}
+                  className={isWide ? 'sm:col-span-2' : ''}
                 >
                   <BlogCard article={article} index={idx} />
                 </motion.div>

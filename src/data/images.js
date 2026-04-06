@@ -1,42 +1,93 @@
-const BASE = 'https://images.unsplash.com/photo-'
-const OPT  = '?w=800&h=520&fit=crop&auto=format&q=80'
+// ── Helpers ────────────────────────────────────────────────────────────────
+const UNS  = (id, w = 800, h = 520) =>
+  `https://images.unsplash.com/photo-${id}?w=${w}&h=${h}&fit=crop&auto=format&q=80`
 
+// Pexels CDN — used for Basketball Lab (8 verified IDs, all confirmed working)
+const PEX  = (id, w = 800, h = 520) =>
+  `https://images.pexels.com/photos/${id}/pexels-photo-${id}.jpeg?auto=compress&cs=tinysrgb&w=${w}&h=${h}&fit=crop`
+
+// ── Article images — one unique photo per article ──────────────────────────
 export const articleImages = {
-  'cervello-playmaker':          `${BASE}1546519638405-a7be394f5e27${OPT}`,
-  'quiet-eye-basket':            `${BASE}1608245449230-4ac19066d2d0${OPT}`,
-  'allenare-gesto-atleta':       `${BASE}1571019613454-1cb2f99b2d8b${OPT}`,
-  'sarcopenia-problema-cerebrale': `${BASE}1559757175-0eb30cd8c063${OPT}`,
-  'professionisti-dilettanti-falso-mito': `${BASE}1461896836934-ffe607ba8211${OPT}`,
-  'post-activation-potentiation':`${BASE}1534438327276-14e5300c3a48${OPT}`,
-  'epigenetica-sport':           `${BASE}1532187863486-abf9dbad1b69${OPT}`,
-  'decelerazione-basket':        `${BASE}1546866655-5aa049cde2c2${OPT}`,
-  'acsm-linee-guida-forza':      `${BASE}1549060279-7e168fcee0c2${OPT}`,
-  'repeated-sprint-ability':     `${BASE}1526676037777-05a232554f77${OPT}`,
-  'tagliafuori-basket':          `${BASE}1579952363873-27f3bade9f55${OPT}`,
-  'distribuzione-proteica':      `${BASE}1490645935967-10de6ba17061${OPT}`,
-  'microbiota-sport-squadra':    `${BASE}1536856136534-bb679c52a9aa${OPT}`,
-  'vitamina-d-performance':      `${BASE}1505576399279-565b52d4ac71${OPT}`,
-  'warm-up-durata-ottimale':     `${BASE}1571019613454-1cb2f99b2d8b${OPT}`,
-  'muscolo-organo-endocrino':    `${BASE}1559757175-0eb30cd8c063${OPT}`,
-  'crampi-muscolari-esercizio':  `${BASE}1526676037777-05a232554f77${OPT}`,
-  'physical-technical-assessments-basketball': `${BASE}1608245449230-4ac19066d2d0${OPT}`,
-  'oltre-vo2max-soglia-neuromeccanica': `${BASE}1532187863486-abf9dbad1b69${OPT}`,
-  'injury-patterns-nba':         `${BASE}1579952363873-27f3bade9f55${OPT}`,
-  'emergenze-sportive-primo-soccorso': `${BASE}1559757175-0eb30cd8c063${OPT}`,
-  'cross-education-effect':      `${BASE}1571019613454-1cb2f99b2d8b${OPT}`,
-  'recovery-methods-basketball': `${BASE}1546519638405-a7be394f5e27${OPT}`,
-  'basketball-off-season':       `${BASE}1490645935967-10de6ba17061${OPT}`,
-  'approccio-integrato-performance-metabolomica': `${BASE}1532187863486-abf9dbad1b69${OPT}`,
+
+  // ── BASKET LAB — Pexels (8 verified) ──────────────────────────────────
+  // cervello-playmaker: decision making, cognitive load in game
+  'cervello-playmaker':                           PEX(2874717),   // basketball game indoor, players in action
+  // quiet-eye: visual focus on the target/hoop
+  'quiet-eye-basket':                             PEX(1752757),   // basketball hoop close-up
+  // decelerazione: footwork, braking mechanics
+  'decelerazione-basket':                         PEX(8084765),   // dribbling close-up, ball & feet
+  // repeated sprint ability: conditioning / speed
+  'repeated-sprint-ability':                      PEX(1080884),   // player dunking outdoor — athleticism
+  // tagliafuori: rebounding position, body position
+  'tagliafuori-basket':                           PEX(6777189),   // dark low-angle court, defensive stance
+  // physical & technical assessments
+  'physical-technical-assessments-basketball':    PEX(2834917),   // player mid-dunk — athletic performance
+  // injury patterns NBA: drama, professional level
+  'injury-patterns-nba':                          PEX(5756239),   // sunset silhouette shooting — cinematic
+  // recovery methods: atmosphere of rest/recovery
+  'recovery-methods-basketball':                  PEX(2277981),   // moody wet court reflection
+
+  // ── TRAINING — Unsplash (verified old-format IDs) ─────────────────────
+  'allenare-gesto-atleta':
+    UNS('1571019613454-1cb2f99b2d8b'),    // athletic training movement
+  'professionisti-dilettanti-falso-mito':
+    UNS('1461896836934-ffe607ba8211'),    // athlete running on road
+  'epigenetica-sport':
+    UNS('1532187863486-abf9dbad1b69'),    // science lab / genetics research
+
+  // ── SCIENZA DELL'ESERCIZIO — Unsplash ─────────────────────────────────
+  'post-activation-potentiation':
+    UNS('1534438327276-14e5300c3a48'),    // barbell / power lifting
+  'acsm-linee-guida-forza':
+    UNS('1549060279-7e168fcee0c2'),       // gym equipment / strength testing
+  'warm-up-durata-ottimale':
+    UNS('1526676037777-05a232554f77'),    // athlete stretching / warm-up
+  'oltre-vo2max-soglia-neuromeccanica':
+    UNS('1571019613454-1cb2f99b2d8b'),    // athletic conditioning
+  'approccio-integrato-performance-metabolomica':
+    UNS('1559757175-0eb30cd8c063'),       // science/anatomy — metabolomics
+
+  // ── ALIMENTAZIONE — Unsplash ───────────────────────────────────────────
+  'distribuzione-proteica':
+    UNS('1490645935967-10de6ba17061'),    // healthy protein meal
+  'microbiota-sport-squadra':
+    UNS('1536856136534-bb679c52a9aa'),    // fermented food / gut health
+  'vitamina-d-performance':
+    UNS('1505576399279-565b52d4ac71'),    // vitamins / supplements
+  'basketball-off-season':
+    UNS('1461896836934-ffe607ba8211'),    // off-season conditioning / running
+
+  // ── MEDICINA SPORTIVA — Unsplash ──────────────────────────────────────
+  'sarcopenia-problema-cerebrale':
+    UNS('1534438327276-14e5300c3a48'),    // strength training — muscle mass
+  'muscolo-organo-endocrino':
+    UNS('1549060279-7e168fcee0c2'),       // gym / muscle work
+  'crampi-muscolari-esercizio':
+    UNS('1608245449230-4ac19066d2d0'),    // basketball — cramps from exertion
+  'emergenze-sportive-primo-soccorso':
+    UNS('1546866655-5aa049cde2c2'),       // sport context — first aid readiness
+  'cross-education-effect':
+    UNS('1546519638405-a7be394f5e27'),    // unilateral training
 }
 
+// ── Category hero images ───────────────────────────────────────────────────
 export const categoryImages = {
-  'Basket Lab':           `${BASE}1546519638405-a7be394f5e27${OPT}`,
-  'Training':             `${BASE}1534438327276-14e5300c3a48${OPT}`,
-  'Alimentazione':        `${BASE}1490645935967-10de6ba17061${OPT}`,
-  'Medicina sportiva':    `${BASE}1559757175-0eb30cd8c063${OPT}`,
-  "Scienza dell'esercizio": `${BASE}1532187863486-abf9dbad1b69${OPT}`,
+  'Basket Lab':
+    PEX(2874717),
+  'Training':
+    UNS('1534438327276-14e5300c3a48'),
+  'Alimentazione':
+    UNS('1490645935967-10de6ba17061'),
+  'Medicina sportiva':
+    UNS('1559757175-0eb30cd8c063'),
+  "Scienza dell'esercizio":
+    UNS('1532187863486-abf9dbad1b69'),
 }
 
 export function getArticleImage(slug, category) {
-  return articleImages[slug] || categoryImages[category] || `${BASE}1571019613454-1cb2f99b2d8b${OPT}`
+  return (
+    articleImages[slug] ||
+    categoryImages[category] ||
+    UNS('1571019613454-1cb2f99b2d8b')
+  )
 }

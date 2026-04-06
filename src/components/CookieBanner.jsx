@@ -184,7 +184,7 @@ export default function CookieBanner() {
                 </button>
                 <button
                   onClick={() => save('necessary')}
-                  className="btn-outline-gold flex-1 py-3 cursor-pointer"
+                  className="btn-outline-gold flex-1 py-3 px-4 text-[11px] cursor-pointer"
                   style={{ justifyContent: 'center' }}
                 >
                   Solo necessari

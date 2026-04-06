@@ -25,8 +25,8 @@ export default function Ticker() {
             key={i}
             className="inline-flex items-center gap-3 px-7 text-[9px] tracking-[0.3em] uppercase flex-shrink-0"
             style={{
-              color: '#3A2C18',
-              borderRight: '1px solid rgba(201,160,82,0.06)',
+              color: 'rgba(201,160,82,0.28)',
+              borderRight: '1px solid rgba(201,160,82,0.07)',
             }}
           >
             <span style={{ color: '#C9A052', fontSize: '5px' }}>◆</span>

@@ -66,7 +66,7 @@ function FeaturedCatCard({ article }) {
           <span className="text-[7px] tracking-[0.3em] uppercase px-2 py-1 rounded" style={{ background: 'rgba(201,160,82,0.1)', color: '#C9A052' }}>
             {article.category}
           </span>
-          <span className="text-[8px]" style={{ color: '#4A3828' }}>{article.readTime} min lettura</span>
+          <span className="text-[8px]" style={{ color: 'rgba(201,160,82,0.42)' }}>{article.readTime} min lettura</span>
         </div>
         <h2
           className="font-black leading-[1.1] mb-3"
@@ -81,7 +81,7 @@ function FeaturedCatCard({ article }) {
         >
           {article.title}
         </h2>
-        <p className="text-[13px] leading-[1.7] mb-4" style={{ color: '#5A4520' }}>{article.excerpt}</p>
+        <p className="text-[13px] leading-[1.7] mb-4" style={{ color: 'rgba(201,160,82,0.52)' }}>{article.excerpt}</p>
         <span
           className="text-[9px] font-bold tracking-[0.2em] uppercase transition-colors group-hover:opacity-80"
           style={{ color: '#C9A052', borderBottom: '1px solid rgba(201,160,82,0.35)', paddingBottom: '2px' }}
@@ -120,16 +120,16 @@ function CatArticleRow({ article, index }) {
         </div>
         {/* text */}
         <div className="flex-1 min-w-0">
-          <div className="text-[7px] tracking-[0.2em] uppercase mb-1" style={{ color: '#4A3828' }}>
+          <div className="text-[7px] tracking-[0.2em] uppercase mb-1" style={{ color: 'rgba(201,160,82,0.38)' }}>
             {article.readTime} min · {new Date(article.date).toLocaleDateString('it-IT', { day: 'numeric', month: 'short', year: 'numeric' })}
           </div>
           <h3
             className="text-[13px] font-semibold leading-[1.35] transition-colors group-hover:text-gold-l truncate"
-            style={{ color: '#7A6040' }}
+            style={{ color: 'rgba(232,220,186,0.72)' }}
           >
             {article.title}
           </h3>
-          <p className="text-[11px] leading-[1.5] mt-1 line-clamp-2" style={{ color: '#3A2C18' }}>
+          <p className="text-[11px] leading-[1.5] mt-1 line-clamp-2" style={{ color: 'rgba(201,160,82,0.38)' }}>
             {article.excerpt}
           </p>
         </div>
@@ -183,13 +183,13 @@ export default function CategoriaPage() {
             <Link
               to="/"
               className="text-[8px] tracking-[0.3em] uppercase transition-colors"
-              style={{ color: '#4A3828' }}
+              style={{ color: 'rgba(201,160,82,0.42)' }}
               onMouseEnter={e => e.currentTarget.style.color = '#C9A052'}
-              onMouseLeave={e => e.currentTarget.style.color = '#4A3828'}
+              onMouseLeave={e => e.currentTarget.style.color = 'rgba(201,160,82,0.42)'}
             >
               Home
             </Link>
-            <span style={{ color: '#2A1E0C' }}>·</span>
+            <span style={{ color: 'rgba(201,160,82,0.2)' }}>·</span>
             <span className="text-[8px] tracking-[0.3em] uppercase" style={{ color: '#C9A052' }}>
               {cfg.label}
             </span>
@@ -197,7 +197,7 @@ export default function CategoriaPage() {
 
           {/* eyebrow */}
           <div className="flex items-center gap-3 mb-4">
-            <span className="text-[8px] tracking-[0.35em] uppercase" style={{ color: '#4A3828' }}>
+            <span className="text-[8px] tracking-[0.35em] uppercase" style={{ color: 'rgba(201,160,82,0.42)' }}>
               {catArticles.length} articoli disponibili
             </span>
           </div>
@@ -218,7 +218,7 @@ export default function CategoriaPage() {
           </h1>
           <p
             className="text-[14px] leading-[1.7] max-w-[480px]"
-            style={{ color: '#5A4520' }}
+            style={{ color: 'rgba(201,160,82,0.55)' }}
           >
             {cfg.sub}
           </p>
@@ -236,7 +236,7 @@ export default function CategoriaPage() {
                 style={{ background: 'rgba(201,160,82,0.08)', border: '1px solid rgba(201,160,82,0.15)' }}
               >
                 <span className="text-[13px] font-bold" style={{ color: '#C9A052' }}>{val}</span>
-                <span className="text-[9px] tracking-[0.1em] uppercase" style={{ color: '#4A3828' }}>{lbl}</span>
+                <span className="text-[9px] tracking-[0.1em] uppercase" style={{ color: 'rgba(201,160,82,0.42)' }}>{lbl}</span>
               </div>
             ))}
           </div>
@@ -249,7 +249,7 @@ export default function CategoriaPage() {
         {/* Featured article */}
         {featured && (
           <div className="mb-10">
-            <p className="text-[8px] tracking-[0.35em] uppercase mb-4" style={{ color: '#3A2C18' }}>
+            <p className="text-[8px] tracking-[0.35em] uppercase mb-4" style={{ color: 'rgba(201,160,82,0.4)' }}>
               — Articolo in evidenza
             </p>
             <FeaturedCatCard article={featured} />
@@ -263,10 +263,10 @@ export default function CategoriaPage() {
               className="flex justify-between items-center mb-5 pb-3"
               style={{ borderBottom: '1px solid rgba(201,160,82,0.08)' }}
             >
-              <p className="text-[8px] tracking-[0.35em] uppercase" style={{ color: '#3A2C18' }}>
+              <p className="text-[8px] tracking-[0.35em] uppercase" style={{ color: 'rgba(201,160,82,0.4)' }}>
                 Tutti gli articoli — {cfg.label}
               </p>
-              <span className="text-[9px]" style={{ color: '#2A1E0C' }}>
+              <span className="text-[9px]" style={{ color: 'rgba(201,160,82,0.35)' }}>
                 {rest.length} articoli
               </span>
             </div>
@@ -280,7 +280,7 @@ export default function CategoriaPage() {
 
         {catArticles.length === 0 && (
           <div className="text-center py-20">
-            <p className="text-[13px]" style={{ color: '#3A2C18' }}>
+            <p className="text-[13px]" style={{ color: 'rgba(201,160,82,0.4)' }}>
               Nessun articolo in questa categoria al momento.
             </p>
           </div>

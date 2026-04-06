@@ -29,8 +29,8 @@ export default function CtaSection() {
 
       {/* eyebrow */}
       <div className="flex items-center gap-3 mb-6 relative z-10">
-        <span className="block w-5 h-px" style={{ background: '#2A1E0C' }} />
-        <span className="text-[8px] tracking-[0.4em] uppercase" style={{ color: '#2A1E0C' }}>
+        <span className="block w-5 h-px" style={{ background: 'rgba(201,160,82,0.25)' }} />
+        <span className="text-[8px] tracking-[0.4em] uppercase" style={{ color: 'rgba(201,160,82,0.38)' }}>
           FitforIN · Blog
         </span>
       </div>
@@ -55,7 +55,7 @@ export default function CtaSection() {
       <div className="relative z-10 flex justify-between items-end">
         <p
           className="text-[11px] leading-[1.7] max-w-[220px] border-l pl-4"
-          style={{ color: '#4A3828', borderColor: '#2A1E0C' }}
+          style={{ color: 'rgba(201,160,82,0.52)', borderColor: 'rgba(201,160,82,0.18)' }}
         >
           Articoli scientifici su training, nutrizione e performance. Gratis, sempre.
         </p>
@@ -66,7 +66,7 @@ export default function CtaSection() {
           >
             Leggi gli articoli ↗
           </Link>
-          <span className="text-[8px] tracking-[0.1em] uppercase" style={{ color: '#1E1810' }}>
+          <span className="text-[8px] tracking-[0.1em] uppercase" style={{ color: 'rgba(201,160,82,0.32)' }}>
             80+ articoli disponibili
           </span>
         </div>

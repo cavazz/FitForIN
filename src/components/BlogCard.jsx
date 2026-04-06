@@ -7,80 +7,96 @@ export default function BlogCard({ article, index }) {
   return (
     <Link
       to={`/articolo/${article.slug}`}
-      className="block relative rounded-[10px] overflow-hidden transition-all duration-200 group"
+      className="group block relative overflow-hidden"
       style={{
-        background: '#1E1A14',
-        border: '1px solid rgba(201,160,82,0.08)',
+        background: '#1A1714',
+        borderRadius: 12,
+        border: '1px solid rgba(201,160,82,0.1)',
+        transition: 'transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease',
       }}
       onMouseEnter={e => {
-        e.currentTarget.style.borderColor = 'rgba(201,160,82,0.22)'
-        e.currentTarget.style.transform = 'translateY(-3px)'
-        e.currentTarget.style.boxShadow = '0 8px 32px rgba(0,0,0,0.35)'
+        e.currentTarget.style.transform = 'translateY(-4px)'
+        e.currentTarget.style.borderColor = 'rgba(201,160,82,0.28)'
+        e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,160,82,0.08)'
       }}
       onMouseLeave={e => {
-        e.currentTarget.style.borderColor = 'rgba(201,160,82,0.08)'
         e.currentTarget.style.transform = 'translateY(0)'
+        e.currentTarget.style.borderColor = 'rgba(201,160,82,0.1)'
         e.currentTarget.style.boxShadow = 'none'
       }}
     >
-      {/* bordo superiore gradient gold */}
+      {/* top gradient accent */}
       <span
         aria-hidden="true"
         className="absolute top-0 left-0 right-0 h-px z-10"
-        style={{ background: 'linear-gradient(90deg,transparent,rgba(201,160,82,0.2),transparent)' }}
+        style={{ background: 'linear-gradient(90deg,transparent,rgba(201,160,82,0.25),transparent)' }}
       />
 
       {/* Cover image */}
-      <div className="relative h-[130px] overflow-hidden">
+      <div className="relative overflow-hidden" style={{ height: 160 }}>
         <img
           src={getArticleImage(article.slug, article.category)}
           alt={article.title}
-          className="img-cover transition-transform duration-700 group-hover:scale-105"
+          className="img-cover"
+          style={{ transition: 'transform 0.6s ease' }}
+          onMouseEnter={e => e.currentTarget.style.transform='scale(1.06)'}
+          onMouseLeave={e => e.currentTarget.style.transform='scale(1)'}
           loading="lazy"
         />
+        {/* gradient over image */}
         <div
           className="absolute inset-0"
-          style={{ background: 'linear-gradient(to bottom, transparent 30%, rgba(30,26,20,0.92) 100%)' }}
+          style={{ background: 'linear-gradient(to bottom, transparent 20%, rgba(26,23,20,0.9) 100%)' }}
         />
-        {/* numero */}
-        <div
+        {/* article number watermark */}
+        <span
           aria-hidden="true"
-          className="absolute top-2 left-3 text-[28px] font-black leading-none"
+          className="absolute top-3 left-3 font-black leading-none select-none pointer-events-none"
           style={{
-            background: 'linear-gradient(180deg,rgba(201,160,82,0.18) 0%,transparent 100%)',
+            fontSize: 32,
+            letterSpacing: '-2px',
+            background: 'linear-gradient(180deg,rgba(201,160,82,0.22) 0%,transparent 100%)',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             backgroundClip: 'text',
-            letterSpacing: '-2px',
           }}
+        >{num}</span>
+        {/* category badge on image */}
+        <span
+          className="absolute bottom-3 left-3 text-[7px] font-bold tracking-[0.22em] uppercase px-2 py-[3px] rounded"
+          style={{ background: 'rgba(201,160,82,0.14)', color: '#C9A052', backdropFilter: 'blur(6px)' }}
         >
-          {num}
-        </div>
+          {article.category}
+        </span>
       </div>
 
       {/* Content */}
-      <div className="p-[14px]">
-        <div
-          className="text-[8px] tracking-[0.2em] uppercase mb-2 font-semibold"
-          style={{ color: 'rgba(201,160,82,0.5)' }}
-        >
-          {article.category}
-        </div>
+      <div className="p-4">
         <h3
-          className="text-[12px] font-semibold leading-[1.4] mb-3 transition-colors group-hover:text-[#E8DCBA]"
-          style={{ color: '#B89060' }}
+          className="font-semibold leading-[1.35] mb-3 transition-colors"
+          style={{
+            fontSize: 13,
+            color: 'rgba(232,220,186,0.72)',
+            transition: 'color 0.18s',
+          }}
+          onMouseEnter={e => e.currentTarget.style.color='#E8DCBA'}
+          onMouseLeave={e => e.currentTarget.style.color='rgba(232,220,186,0.72)'}
         >
           {article.title}
         </h3>
-        <div className="text-[9px] tracking-wide" style={{ color: 'rgba(201,160,82,0.32)' }}>
-          {article.readTime} min · {article.author}
+        <div className="flex items-center justify-between">
+          <span
+            className="text-[9px] tracking-[0.08em]"
+            style={{ color: 'rgba(201,160,82,0.38)' }}
+          >
+            {article.readTime} min · {article.author}
+          </span>
+          <span
+            className="text-[11px] opacity-0 group-hover:opacity-100 transition-opacity"
+            style={{ color: '#C9A052' }}
+          >↗</span>
         </div>
       </div>
-
-      <span
-        className="absolute bottom-4 right-4 text-[13px] opacity-0 group-hover:opacity-100 transition-opacity"
-        style={{ color: '#C9A052' }}
-      >↗</span>
     </Link>
   )
 }

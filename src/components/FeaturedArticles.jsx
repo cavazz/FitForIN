@@ -11,38 +11,29 @@ export default function FeaturedArticles() {
       <div className="flex justify-between items-center px-7 pt-5">
         <span
           className="flex items-center gap-3 text-[8px] tracking-[0.4em] uppercase"
-          style={{ color: '#4A3828' }}
+          style={{ color: 'rgba(201,160,82,0.4)' }}
         >
-          <span className="font-bold" style={{ color: '#252018' }}>01</span>
+          <span className="font-bold" style={{ color: 'rgba(201,160,82,0.25)' }}>01</span>
           In evidenza
         </span>
         <Link
           to="/"
           className="text-[9px] tracking-[0.1em] uppercase transition-colors"
-          style={{ color: '#4A3828' }}
+          style={{ color: 'rgba(201,160,82,0.38)' }}
           onMouseEnter={e => e.currentTarget.style.color = '#C9A052'}
-          onMouseLeave={e => e.currentTarget.style.color = '#4A3828'}
+          onMouseLeave={e => e.currentTarget.style.color = 'rgba(201,160,82,0.38)'}
         >
           Vedi tutti →
         </Link>
       </div>
 
       {/* grid asimmetrica */}
-      <div
-        className="mt-5"
-        style={{
-          display: 'grid',
-          gridTemplateColumns: '5fr 3fr',
-          gridTemplateRows: 'auto auto',
-          gap: '1px',
-          background: 'rgba(201,160,82,0.07)',
-        }}
-      >
-        {/* articolo grande — span 2 righe */}
+      <div className="mt-5 featured-grid">
+        {/* articolo grande — span 2 righe su desktop */}
         <Link
           to={`/articolo/${main.slug}`}
-          className="block relative overflow-hidden group"
-          style={{ background: '#161412', gridRow: 'span 2' }}
+          className="featured-grid-main block relative overflow-hidden group"
+          style={{ background: '#161412' }}
         >
           {/* Cover image */}
           <div className="relative h-[200px] overflow-hidden">
@@ -136,7 +127,7 @@ export default function FeaturedArticles() {
               <div>
                 <div
                   className="text-[11px] font-black tracking-[0.1em] mb-2 font-mono"
-                  style={{ color: '#252018' }}
+                  style={{ color: 'rgba(201,160,82,0.2)' }}
                 >
                   — 0{idx + 2}
                 </div>

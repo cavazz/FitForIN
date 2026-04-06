@@ -20,7 +20,7 @@ function useScrollProgress() {
 }
 
 function ArticleBlock({ block }) {
-  const baseText = { color: '#7A6040', lineHeight: '1.85', fontSize: '15px' }
+  const baseText = { color: 'rgba(201,160,82,0.68)', lineHeight: '1.85', fontSize: '15px' }
   const heading2 = {
     fontWeight: 800,
     fontSize: 'clamp(18px,3vw,24px)',
@@ -46,7 +46,7 @@ function ArticleBlock({ block }) {
       <p style={{
         ...baseText,
         fontSize: '17px',
-        color: '#A08050',
+        color: 'rgba(201,160,82,0.8)',
         borderLeft: '2px solid rgba(201,160,82,0.3)',
         paddingLeft: '1.25rem',
         marginBottom: '1.5rem',
@@ -91,13 +91,13 @@ export default function ArticlePage() {
     return (
       <div className="min-h-screen flex items-center justify-center">
         <div className="text-center">
-          <p className="text-sm mb-4" style={{ color: '#3D3220' }}>Articolo non trovato</p>
+          <p className="text-sm mb-4" style={{ color: 'rgba(201,160,82,0.42)' }}>Articolo non trovato</p>
           <Link
             to="/"
             className="text-xs tracking-widest uppercase transition-colors"
-            style={{ color: '#5A4520' }}
+            style={{ color: 'rgba(201,160,82,0.42)' }}
             onMouseEnter={e => e.currentTarget.style.color = '#C9A052'}
-            onMouseLeave={e => e.currentTarget.style.color = '#5A4520'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(201,160,82,0.42)'}
           >
             ← Torna alla home
           </Link>
@@ -124,19 +124,19 @@ export default function ArticlePage() {
           <Link
             to="/"
             className="text-[8px] tracking-[0.3em] uppercase transition-colors"
-            style={{ color: '#3D3220' }}
+            style={{ color: 'rgba(201,160,82,0.42)' }}
             onMouseEnter={e => e.currentTarget.style.color = '#C9A052'}
-            onMouseLeave={e => e.currentTarget.style.color = '#3D3220'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(201,160,82,0.42)'}
           >
             Home
           </Link>
-          <span style={{ color: '#2A1E0C' }} aria-hidden="true">·</span>
+          <span style={{ color: 'rgba(201,160,82,0.2)' }} aria-hidden="true">·</span>
           <Link
             to={`/categoria/${article.category}`}
             className="text-[8px] tracking-[0.3em] uppercase transition-colors"
-            style={{ color: '#3D3220' }}
+            style={{ color: 'rgba(201,160,82,0.42)' }}
             onMouseEnter={e => e.currentTarget.style.color = '#C9A052'}
-            onMouseLeave={e => e.currentTarget.style.color = '#3D3220'}
+            onMouseLeave={e => e.currentTarget.style.color = 'rgba(201,160,82,0.42)'}
           >
             {article.category}
           </Link>
@@ -146,7 +146,7 @@ export default function ArticlePage() {
         <header className="mb-10">
           <div
             className="text-[7px] tracking-[0.3em] uppercase mb-4 flex items-center gap-3"
-            style={{ color: '#3D3220' }}
+            style={{ color: 'rgba(201,160,82,0.42)' }}
           >
             <span
               className="px-2 py-1 rounded"
@@ -201,7 +201,7 @@ export default function ArticlePage() {
         <div>
           {article.content
             ? article.content.map((block, i) => <ArticleBlock key={i} block={block} />)
-            : <p style={{ color: '#5A4520', lineHeight: '1.8', fontSize: '15px' }}>{article.excerpt}</p>
+            : <p style={{ color: 'rgba(201,160,82,0.68)', lineHeight: '1.8', fontSize: '15px' }}>{article.excerpt}</p>
           }
         </div>
 
@@ -216,7 +216,7 @@ export default function ArticlePage() {
           <div className="mb-14">
             <p
               className="text-[9px] tracking-[0.3em] uppercase mb-5"
-              style={{ color: '#3D3220' }}
+              style={{ color: 'rgba(201,160,82,0.42)' }}
             >
               Articoli correlati — {article.category}
             </p>
@@ -234,10 +234,10 @@ export default function ArticlePage() {
                   onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(201,160,82,0.07)'}
                 >
                   <div>
-                    <div className="text-[12px] font-semibold mb-1" style={{ color: '#7A6040' }}>
+                    <div className="text-[12px] font-semibold mb-1" style={{ color: 'rgba(201,160,82,0.72)' }}>
                       {related.title}
                     </div>
-                    <div className="text-[9px]" style={{ color: '#3D3220' }}>
+                    <div className="text-[9px]" style={{ color: 'rgba(201,160,82,0.42)' }}>
                       {related.readTime} min lettura
                     </div>
                   </div>
@@ -255,9 +255,9 @@ export default function ArticlePage() {
         <Link
           to="/"
           className="text-[9px] tracking-[0.3em] uppercase transition-colors"
-          style={{ color: '#3D3220' }}
+          style={{ color: 'rgba(201,160,82,0.42)' }}
           onMouseEnter={e => e.currentTarget.style.color = '#C9A052'}
-          onMouseLeave={e => e.currentTarget.style.color = '#3D3220'}
+          onMouseLeave={e => e.currentTarget.style.color = 'rgba(201,160,82,0.42)'}
         >
           ← Torna alla home
         </Link>
