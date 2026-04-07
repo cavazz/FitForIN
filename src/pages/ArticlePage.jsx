@@ -4,6 +4,30 @@ import { articles } from '../data/articles'
 import { getArticleImage } from '../data/images'
 import Footer from '../components/Footer'
 
+/* ── JSON-LD structured data for BlogPosting ────────────── */
+function ArticleStructuredData({ article, imageUrl }) {
+  const data = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: article.title,
+    description: article.excerpt,
+    image: imageUrl,
+    author: { '@type': 'Person', name: article.author },
+    datePublished: article.date,
+    inLanguage: 'it',
+    url: `https://www.fitforin.it/articolo/${article.slug}`,
+    publisher: { '@type': 'Person', name: 'Fabio Forin' },
+    articleSection: article.category,
+    timeRequired: `PT${article.readTime}M`,
+  }
+  return (
+    <script
+      type="application/ld+json"
+      dangerouslySetInnerHTML={{ __html: JSON.stringify(data) }}
+    />
+  )
+}
+
 function useScrollProgress() {
   const [progress, setProgress] = useState(0)
   useEffect(() => {
@@ -106,11 +130,20 @@ export default function ArticlePage() {
     )
   }
 
+  const imageUrl = getArticleImage(article.slug, article.category)
+
   return (
     <>
+      <ArticleStructuredData article={article} imageUrl={imageUrl} />
+
       {/* scroll progress bar — gold */}
       <div
         aria-hidden="true"
+        aria-label="Progresso lettura"
+        role="progressbar"
+        aria-valuenow={Math.round(progress)}
+        aria-valuemin={0}
+        aria-valuemax={100}
         className="fixed top-0 left-0 h-[2px] z-50 transition-none"
         style={{
           background: 'linear-gradient(90deg,#C9A052,#E8DCBA)',
@@ -118,7 +151,7 @@ export default function ArticlePage() {
         }}
       />
 
-      <article className="pt-28 pb-20 px-7 max-w-[720px] mx-auto">
+      <article id="main-content" className="pt-28 pb-20 px-7 max-w-[720px] mx-auto">
         {/* breadcrumb */}
         <div className="flex items-center gap-3 mb-10">
           <Link
@@ -181,9 +214,13 @@ export default function ArticlePage() {
           style={{ border: '1px solid rgba(201,160,82,0.1)' }}
         >
           <img
-            src={getArticleImage(article.slug, article.category)}
+            src={imageUrl}
             alt={article.title}
             className="img-cover"
+            fetchpriority="high"
+            decoding="async"
+            width="720"
+            height="260"
           />
           <div
             className="absolute inset-0"

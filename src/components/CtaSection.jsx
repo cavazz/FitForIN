@@ -37,17 +37,17 @@ export default function CtaSection() {
 
       {/* titolo */}
       <div
-        className="relative z-10 mb-9"
+        className="font-display relative z-10 mb-9"
         style={{
           fontSize: 'clamp(44px,8vw,82px)',
-          fontWeight: 900,
-          letterSpacing: '-0.05em',
+          fontWeight: 800,
+          letterSpacing: '-0.04em',
           lineHeight: 0.88,
           textTransform: 'uppercase',
         }}
       >
-        <span data-cta-line className="block grad-text">Allenati</span>
-        <span data-cta-line className="block grad-text">con</span>
+        <span data-cta-line className="block" style={{ color: '#E8DCBA' }}>Allenati</span>
+        <span data-cta-line className="block" style={{ color: 'rgba(201,160,82,0.72)' }}>con</span>
         <span data-cta-line className="block text-outline">metodo.</span>
       </div>
 

@@ -6,6 +6,9 @@ export default function Hero() {
   const titleRef = useRef(null)
 
   useEffect(() => {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    if (reducedMotion) return
+
     const tl = gsap.timeline()
 
     // titolo stagger
@@ -13,8 +16,8 @@ export default function Hero() {
     if (lines) {
       tl.fromTo(
         lines,
-        { opacity: 0, y: 55 },
-        { opacity: 1, y: 0, duration: 0.95, ease: 'power3.out', stagger: 0.11 }
+        { opacity: 0, y: 48 },
+        { opacity: 1, y: 0, duration: 0.85, ease: 'power4.out', stagger: 0.09 }
       )
     }
   }, [])
@@ -55,21 +58,21 @@ export default function Hero() {
         <div ref={titleRef} className="mb-10 overflow-visible">
           <span
             data-line
-            className="block font-black uppercase leading-[0.88] tracking-[-0.05em] grad-text"
-            style={{ fontSize: 'clamp(64px,13vw,140px)' }}
+            className="block font-display font-extrabold uppercase leading-[0.88] tracking-[-0.04em]"
+            style={{ fontSize: 'clamp(64px,13vw,140px)', color: '#E8DCBA' }}
           >
             SPORT
           </span>
           <span
             data-line
-            className="block font-black uppercase leading-[0.88] tracking-[-0.05em] grad-text-mid"
-            style={{ fontSize: 'clamp(64px,13vw,140px)', marginLeft: 'clamp(2rem,5vw,5rem)' }}
+            className="block font-display font-extrabold uppercase leading-[0.88] tracking-[-0.04em]"
+            style={{ fontSize: 'clamp(64px,13vw,140px)', marginLeft: 'clamp(2rem,5vw,5rem)', color: 'rgba(201,160,82,0.72)' }}
           >
             SCIENCE
           </span>
           <span
             data-line
-            className="block font-black uppercase leading-[0.88] tracking-[-0.05em] text-outline"
+            className="block font-display font-extrabold uppercase leading-[0.88] tracking-[-0.04em] text-outline"
             style={{ fontSize: 'clamp(64px,13vw,140px)', marginLeft: 'clamp(1rem,2.5vw,2rem)' }}
           >
             BLOG.

@@ -17,7 +17,9 @@ export default {
         'muted':    '#4A3828',
       },
       fontFamily: {
-        sans: ['Inter', '-apple-system', 'sans-serif'],
+        sans:    ['Inter', '-apple-system', 'sans-serif'],
+        display: ['Syne', '-apple-system', 'sans-serif'],
+        mono:    ['"JetBrains Mono"', 'monospace'],
       },
       letterSpacing: {
         'tightest': '-0.05em',

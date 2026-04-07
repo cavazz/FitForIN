@@ -9,6 +9,7 @@ import SimpleInfoPage from './pages/SimpleInfoPage'
 export default function App() {
   return (
     <BrowserRouter>
+      <a href="#main-content" className="skip-nav">Vai al contenuto</a>
       <Navbar />
       <CookieBanner />
       <Routes>

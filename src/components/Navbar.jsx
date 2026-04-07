@@ -1,80 +1,82 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link, useLocation } from 'react-router-dom'
 import { motion, AnimatePresence } from 'framer-motion'
+import { categories } from '../data/articles'
+
+/* ── category counts map ─────────────────────────────────── */
+const CAT_COUNT = Object.fromEntries(
+  categories
+    .filter(c => c.name !== 'Tutti')
+    .map(c => [c.name, String(c.count).padStart(2, '0')])
+)
 
 const LINKS = [
-  { label: 'Home',          to: '/' },
-  { label: 'Training',      to: '/categoria/Training' },
-  { label: 'Alimentazione', to: '/categoria/Alimentazione' },
-  { label: 'Basket Lab',    to: '/categoria/Basket Lab' },
-  { label: 'Medicina',      to: '/categoria/Medicina sportiva' },
-  { label: 'Scienza',       to: "/categoria/Scienza dell'esercizio" },
+  { label: 'Home',          num: '00', to: '/',                                  count: null },
+  { label: 'Training',      num: '01', to: '/categoria/Training',                count: CAT_COUNT['Training'] },
+  { label: 'Alimentazione', num: '02', to: '/categoria/Alimentazione',           count: CAT_COUNT['Alimentazione'] },
+  { label: 'Basket Lab',    num: '03', to: '/categoria/Basket Lab',              count: CAT_COUNT['Basket Lab'] },
+  { label: 'Medicina',      num: '04', to: '/categoria/Medicina sportiva',       count: CAT_COUNT['Medicina sportiva'] },
+  { label: 'Scienza',       num: '05', to: "/categoria/Scienza dell'esercizio",  count: CAT_COUNT["Scienza dell'esercizio"] },
 ]
 
-/* ─── hamburger → X ─────────────────────────────────────── */
+/* ── hamburger → X ──────────────────────────────────────── */
 function MenuToggle({ open, onClick }) {
-  const s = { display:'block', height:2, background:'#C9A052',
-              borderRadius:2, transformOrigin:'center' }
   return (
-    <button onClick={onClick} aria-label={open ? 'Chiudi' : 'Menu'}
-      style={{ display:'flex', flexDirection:'column', justifyContent:'center',
-               gap:5, width:38, height:38, background:'none', border:'none',
-               cursor:'pointer', padding:0, flexShrink:0 }}>
-      <motion.span style={{ ...s, width:26 }}
-        animate={open ? { rotate: 45, y: 7 } : { rotate: 0, y: 0 }}
-        transition={{ duration:0.25, ease:[0.25,0.1,0.25,1] }} />
-      <motion.span style={{ ...s, width:18 }}
+    <button
+      onClick={onClick}
+      aria-label={open ? 'Chiudi menu' : 'Apri menu'}
+      aria-expanded={open}
+      style={{
+        width: 40, height: 40,
+        display: 'flex', flexDirection: 'column',
+        alignItems: 'flex-end', justifyContent: 'center',
+        gap: 5, background: 'none', border: 'none',
+        cursor: 'pointer', padding: 0, flexShrink: 0,
+      }}
+    >
+      <motion.span
+        style={{ display: 'block', height: 1.5, background: '#C9A052', borderRadius: 2, transformOrigin: 'center' }}
+        animate={open ? { rotate: 45, y: 6.5, width: 22 } : { rotate: 0, y: 0, width: 26 }}
+        transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+      />
+      <motion.span
+        style={{ display: 'block', height: 1.5, width: 16, background: 'rgba(201,160,82,0.4)', borderRadius: 2 }}
         animate={{ opacity: open ? 0 : 1 }}
-        transition={{ duration:0.15 }} />
-      <motion.span style={{ ...s, width:22 }}
-        animate={open ? { rotate:-45, y:-7 } : { rotate:0, y:0 }}
-        transition={{ duration:0.25, ease:[0.25,0.1,0.25,1] }} />
+        transition={{ duration: 0.12 }}
+      />
+      <motion.span
+        style={{ display: 'block', height: 1.5, background: '#C9A052', borderRadius: 2, transformOrigin: 'center' }}
+        animate={open ? { rotate: -45, y: -6.5, width: 22 } : { rotate: 0, y: 0, width: 20 }}
+        transition={{ duration: 0.22, ease: [0.23, 1, 0.32, 1] }}
+      />
     </button>
-  )
-}
-
-/* ─── mask reveal (testo sale dal basso) ─────────────────── */
-function Reveal({ children, delay = 0 }) {
-  return (
-    <div style={{ overflow:'hidden', paddingBottom:1 }}>
-      <motion.div
-        initial={{ y:'105%' }}
-        animate={{ y:0 }}
-        exit={{ y:'105%', transition:{ duration:0.18, ease:[0.4,0,1,1] } }}
-        transition={{ duration:0.55, delay, ease:[0.16,1,0.3,1] }}
-      >
-        {children}
-      </motion.div>
-    </div>
   )
 }
 
 /* ─────────────────────────────────────────────────────────── */
 
 export default function Navbar() {
-  const [scrolled, setScrolled]   = useState(false)
-  const [open,     setOpen]       = useState(false)
-  const savedScroll               = useRef(0)
-  const location                  = useLocation()
+  const [scrolled, setScrolled] = useState(false)
+  const [open, setOpen]         = useState(false)
+  const savedScroll             = useRef(0)
+  const location                = useLocation()
 
-  /* scroll state */
   useEffect(() => {
-    const fn = () => setScrolled(window.scrollY > 20)
-    window.addEventListener('scroll', fn, { passive:true })
+    const fn = () => setScrolled(window.scrollY > 24)
+    fn()
+    window.addEventListener('scroll', fn, { passive: true })
     return () => window.removeEventListener('scroll', fn)
   }, [])
 
-  /* chiudi al cambio pagina */
   useEffect(() => { setOpen(false) }, [location.pathname])
 
-  /* ── scroll lock iOS-safe ─────────────────────────────── */
   useEffect(() => {
     if (open) {
       savedScroll.current = window.scrollY
-      document.body.style.position   = 'fixed'
-      document.body.style.top        = `-${savedScroll.current}px`
-      document.body.style.width      = '100%'
-      document.body.style.overflowY  = 'scroll'   /* evita layout shift */
+      document.body.style.position  = 'fixed'
+      document.body.style.top       = `-${savedScroll.current}px`
+      document.body.style.width     = '100%'
+      document.body.style.overflowY = 'scroll'
     } else {
       document.body.style.position  = ''
       document.body.style.top       = ''
@@ -90,85 +92,92 @@ export default function Navbar() {
     }
   }, [open])
 
-  const isActive = (to) => location.pathname === to
+  const isActive = (to) => {
+    if (to === '/') return location.pathname === '/'
+    return location.pathname.startsWith(to)
+  }
 
-  /* Il file logo ha ~64% di spazio bianco (32% top + 32% bottom).
-     VISIBLE = altezza del marchio visibile che vogliamo mostrare.
-     RAW     = altezza a cui renderizziamo l'immagine (VISIBLE / 0.36 ≈ ×2.78).
-     Il wrapper taglia il whitespace con overflow:hidden + flex center. */
-  const VISIBLE = scrolled ? 50  : 78
+  const VISIBLE = scrolled ? 46 : 70
   const RAW     = Math.round(VISIBLE * 2.78)
-  const NAV_H   = scrolled ? 70  : 108
+  const NAV_H   = scrolled ? 62 : 96
 
   return (
     <>
-      {/* ══════════════════════════════════════════
-          GRADIENTE superiore — navbar visibile
-          su qualsiasi sfondo prima dello scroll
-      ══════════════════════════════════════════ */}
+      {/* ── hero gradient overlay ──────────────────────── */}
       <div
         aria-hidden
         className="fixed top-0 left-0 right-0 z-40 pointer-events-none"
         style={{
-          height: 220,
+          height: 200,
           background: 'linear-gradient(180deg, rgba(0,0,0,0.6) 0%, transparent 100%)',
           opacity: scrolled ? 0 : 1,
-          transition: 'opacity 0.4s',
+          transition: 'opacity 360ms ease',
         }}
       />
 
-      {/* ══════════════════════════════════════════
-          BARRA
-      ══════════════════════════════════════════ */}
+      {/* ── header bar ─────────────────────────────────── */}
       <motion.header
         className="fixed top-0 left-0 right-0 z-50 flex items-center justify-between"
-        animate={{
-          height: NAV_H,
-          backgroundColor: scrolled ? 'rgba(10,8,5,0.97)' : 'rgba(0,0,0,0)',
-        }}
-        transition={{ duration:0.4, ease:[0.25,0.1,0.25,1] }}
+        animate={{ height: NAV_H }}
+        transition={{ duration: 0.36, ease: [0.23, 1, 0.32, 1] }}
         style={{
-          backdropFilter:       scrolled ? 'blur(36px) saturate(180%)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(36px) saturate(180%)' : 'none',
-          borderBottom: scrolled ? '1px solid rgba(201,160,82,0.12)' : '1px solid transparent',
-          paddingLeft:  'clamp(20px, 3vw, 44px)',
-          paddingRight: 'clamp(20px, 3vw, 44px)',
+          backgroundColor:      scrolled ? 'rgba(9,7,4,0.95)'              : 'transparent',
+          backdropFilter:       scrolled ? 'blur(40px) saturate(200%)'     : 'none',
+          WebkitBackdropFilter: scrolled ? 'blur(40px) saturate(200%)'     : 'none',
+          borderBottom:         scrolled ? '1px solid rgba(201,160,82,0.1)' : '1px solid transparent',
+          paddingLeft:  'clamp(20px,3vw,44px)',
+          paddingRight: 'clamp(20px,3vw,44px)',
+          transition: 'background-color 360ms ease, border-color 360ms ease',
         }}
       >
-        {/* LOGO — wrapper che taglia il whitespace del file */}
-        <Link to="/" onClick={() => setOpen(false)} aria-label="FitforIN"
-          style={{ lineHeight:0, flexShrink:0, transition:'opacity 0.2s' }}
-          onMouseEnter={e => e.currentTarget.style.opacity='0.72'}
-          onMouseLeave={e => e.currentTarget.style.opacity='1'}
+        {/* LOGO — sempre cliccabile, torna alla home */}
+        <Link
+          to="/"
+          onClick={() => setOpen(false)}
+          aria-label="FitforIN — torna alla home"
+          className="logo-link"
+          style={{ lineHeight: 0, flexShrink: 0 }}
         >
-          <div style={{
-            height: VISIBLE,
-            overflow: 'hidden',
-            display: 'flex',
-            alignItems: 'center',
-            transition: 'height 0.4s cubic-bezier(0.25,0.1,0.25,1)',
-            flexShrink: 0,
-          }}>
-            <img
-              src="/logo.svg" alt="FIT FORIN"
-              style={{
-                height: RAW,
-                width: 'auto',
-                display: 'block',
-                flexShrink: 0,
-                transition: 'height 0.4s cubic-bezier(0.25,0.1,0.25,1)',
-              }}
+          <motion.div
+            animate={{ height: VISIBLE }}
+            transition={{ duration: 0.36, ease: [0.23, 1, 0.32, 1] }}
+            style={{ overflow: 'hidden', display: 'flex', alignItems: 'center' }}
+          >
+            <motion.img
+              src="/logo.svg"
+              alt="FIT FORIN"
+              animate={{ height: RAW }}
+              transition={{ duration: 0.36, ease: [0.23, 1, 0.32, 1] }}
+              style={{ width: 'auto', display: 'block' }}
               draggable={false}
             />
-          </div>
+          </motion.div>
         </Link>
 
-        {/* DESKTOP LINKS — lg+ */}
-        <nav className="hidden lg:flex items-center" style={{ gap:'clamp(8px,2vw,36px)' }}>
-          {LINKS.map(({ label, to }) => (
-            <Link key={label} to={to} className="nav-link"
-              data-active={isActive(to) ? 'true' : 'false'}>
-              {label}
+        {/* ── DESKTOP LINKS — indicatore scorrevole ─── */}
+        <nav
+          className="hidden lg:flex items-center"
+          style={{ gap: 'clamp(4px,1.6vw,28px)' }}
+          aria-label="Navigazione principale"
+        >
+          {LINKS.map(({ label, num, to }) => (
+            <Link
+              key={label}
+              to={to}
+              className="nav-link-v2"
+              data-active={isActive(to) ? 'true' : 'false'}
+              aria-current={isActive(to) ? 'page' : undefined}
+            >
+              <span className="nav-link-num" aria-hidden="true">{num}</span>
+              <span className="nav-link-label">{label}</span>
+              {/* indicatore scorrevole con layoutId */}
+              {isActive(to) && (
+                <motion.span
+                  layoutId="desk-nav-indicator"
+                  className="nav-link-indicator"
+                  transition={{ type: 'spring', stiffness: 420, damping: 36 }}
+                />
+              )}
             </Link>
           ))}
         </nav>
@@ -179,96 +188,174 @@ export default function Navbar() {
         </div>
       </motion.header>
 
-      {/* ══════════════════════════════════════════
-          MOBILE OVERLAY
-      ══════════════════════════════════════════ */}
+      {/* ══════════════════════════════════════════════════
+          MOBILE OVERLAY — Athletic Dashboard
+      ══════════════════════════════════════════════════ */}
       <AnimatePresence>
         {open && (
           <motion.div
-            key="overlay"
-            className="fixed inset-0 z-50 lg:hidden flex flex-col"
-            initial={{ opacity:0 }}
-            animate={{ opacity:1 }}
-            exit={{ opacity:0, transition:{ duration:0.22, delay:0.12 } }}
-            transition={{ duration:0.18 }}
-            style={{ background:'#0C0A07' }}
+            key="mobile-menu"
+            role="dialog"
+            aria-modal="true"
+            aria-label="Menu di navigazione"
+            className="fixed inset-0 z-[60] lg:hidden flex flex-col"
+            initial={{ clipPath: 'inset(0 0 100% 0)', opacity: 0 }}
+            animate={{ clipPath: 'inset(0 0 0% 0)', opacity: 1 }}
+            exit={{
+              clipPath: 'inset(0 0 100% 0)', opacity: 0,
+              transition: { duration: 0.28, ease: [0.77, 0, 0.175, 1] },
+            }}
+            transition={{ duration: 0.46, ease: [0.23, 1, 0.32, 1] }}
+            style={{ background: '#050302' }}
           >
-            {/* glow */}
-            <div aria-hidden style={{
-              position:'absolute', top:0, left:0, right:0, height:360, pointerEvents:'none',
-              background:'radial-gradient(ellipse 90% 55% at 50% -15%, rgba(201,160,82,0.08) 0%, transparent 65%)',
-            }} />
-
-            {/* header: logo + X */}
-            <div className="flex items-center justify-between flex-shrink-0 relative z-10"
+            {/* sport court grid texture */}
+            <div
+              aria-hidden
               style={{
-                height: 108,
+                position: 'absolute', inset: 0, pointerEvents: 'none',
+                backgroundImage: `
+                  linear-gradient(rgba(201,160,82,0.018) 1px, transparent 1px),
+                  linear-gradient(90deg, rgba(201,160,82,0.018) 1px, transparent 1px)
+                `,
+                backgroundSize: '52px 52px',
+              }}
+            />
+            {/* gold radial glow top */}
+            <div
+              aria-hidden
+              style={{
+                position: 'absolute', top: 0, left: 0, right: 0, height: 320,
+                background: 'radial-gradient(ellipse 70% 42% at 50% -8%, rgba(201,160,82,0.13) 0%, transparent 70%)',
+                pointerEvents: 'none',
+              }}
+            />
+
+            {/* ── HEADER ────────────────────────────────── */}
+            <div
+              className="relative z-10 flex items-center justify-between flex-shrink-0"
+              style={{
+                height: 96,
                 paddingLeft:  'clamp(20px,3vw,44px)',
                 paddingRight: 'clamp(20px,3vw,44px)',
-                borderBottom: '1px solid rgba(201,160,82,0.09)',
+                borderBottom: '1px solid rgba(201,160,82,0.08)',
               }}
             >
-              <Reveal delay={0}>
-                <Link to="/" onClick={() => setOpen(false)} style={{ lineHeight:0 }}>
-                  <div style={{ height:78, overflow:'hidden', display:'flex', alignItems:'center' }}>
-                    <img src="/logo.svg" alt="FIT FORIN"
-                      style={{ height:217, width:'auto', display:'block' }}
+              <motion.div
+                initial={{ opacity: 0, y: 12 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.4, delay: 0.08, ease: [0.23, 1, 0.32, 1] }}
+              >
+                <Link to="/" onClick={() => setOpen(false)} aria-label="FitforIN — home" style={{ lineHeight: 0 }}>
+                  <div style={{ height: 70, overflow: 'hidden', display: 'flex', alignItems: 'center' }}>
+                    <img
+                      src="/logo.svg" alt="FIT FORIN"
+                      style={{ height: 195, width: 'auto', display: 'block' }}
                       draggable={false}
                     />
                   </div>
                 </Link>
-              </Reveal>
+              </motion.div>
               <MenuToggle open={open} onClick={() => setOpen(false)} />
             </div>
 
-            {/* LINKS */}
-            <nav className="flex-1 flex flex-col justify-center relative z-10"
-              style={{ paddingLeft:'clamp(24px,5vw,52px)', paddingRight:28 }}>
-              {LINKS.map(({ label, to }, i) => (
-                <div key={label} style={{ borderBottom:'1px solid rgba(201,160,82,0.07)' }}>
-                  <Reveal delay={0.06 + i * 0.065}>
-                    <Link to={to} onClick={() => setOpen(false)}
-                      className="flex items-center justify-between"
-                      style={{ paddingTop:14, paddingBottom:14, textDecoration:'none' }}
+            {/* ── STATS STRIP — live scoreboard feel ─── */}
+            <motion.div
+              className="relative z-10 flex items-center gap-4 flex-shrink-0"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.18, ease: 'easeOut' }}
+              style={{
+                padding: '10px clamp(20px,3vw,44px)',
+                borderBottom: '1px solid rgba(201,160,82,0.07)',
+              }}
+            >
+              {/* pulsing live dot */}
+              <span
+                style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 8, letterSpacing: '0.3em', textTransform: 'uppercase', color: 'rgba(201,160,82,0.5)' }}
+              >
+                <span style={{ position: 'relative', display: 'inline-block', width: 6, height: 6 }}>
+                  <span style={{
+                    position: 'absolute', inset: 0, borderRadius: '50%',
+                    background: '#C9A052', opacity: 0.3,
+                    animation: 'ping 1.4s ease-in-out infinite',
+                  }} />
+                  <span style={{
+                    position: 'absolute', inset: 1, borderRadius: '50%',
+                    background: '#C9A052',
+                  }} />
+                </span>
+                Live
+              </span>
+              <span style={{ color: 'rgba(201,160,82,0.18)', fontSize: 10 }}>·</span>
+              <span style={{ fontSize: 8, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(201,160,82,0.32)' }}>80+ articoli</span>
+              <span style={{ color: 'rgba(201,160,82,0.18)', fontSize: 10 }}>·</span>
+              <span style={{ fontSize: 8, letterSpacing: '0.25em', textTransform: 'uppercase', color: 'rgba(201,160,82,0.32)' }}>6 categorie</span>
+            </motion.div>
+
+            {/* ── NAV LINKS — athletic lineup card ─────── */}
+            <nav
+              className="flex-1 flex flex-col justify-center relative z-10 overflow-y-auto"
+              aria-label="Menu mobile"
+            >
+              {LINKS.map(({ label, num, to, count }, i) => {
+                const active = isActive(to)
+                return (
+                  <motion.div
+                    key={label}
+                    initial={{ opacity: 0, clipPath: 'inset(0 100% 0 0)' }}
+                    animate={{ opacity: 1, clipPath: 'inset(0 0% 0 0)' }}
+                    exit={{
+                      opacity: 0,
+                      transition: { duration: 0.14, delay: 0, ease: 'easeIn' },
+                    }}
+                    transition={{ duration: 0.52, delay: 0.14 + i * 0.06, ease: [0.23, 1, 0.32, 1] }}
+                  >
+                    <Link
+                      to={to}
+                      onClick={() => setOpen(false)}
+                      className="mobile-nav-row"
+                      data-active={active ? 'true' : 'false'}
+                      aria-current={active ? 'page' : undefined}
                     >
-                      <span style={{
-                        fontSize:      'clamp(32px, 9vw, 58px)',
-                        fontWeight:    900,
-                        textTransform: 'uppercase',
-                        letterSpacing: '-0.025em',
-                        lineHeight:    1,
-                        color: isActive(to) ? '#C9A052' : 'rgba(232,220,186,0.58)',
-                      }}>
-                        {label}
-                      </span>
-                      <span style={{
-                        color:'#C9A052',
-                        fontSize: isActive(to) ? 8 : 17,
-                        opacity:  isActive(to) ? 1 : 0.22,
-                        lineHeight:1, marginLeft:14, flexShrink:0,
-                      }}>
-                        {isActive(to) ? '●' : '→'}
-                      </span>
+                      {/* left accent bar */}
+                      <span className="mobile-nav-row-bar" aria-hidden="true" />
+
+                      {/* number */}
+                      <span className="mobile-nav-row-num" aria-hidden="true">{num}</span>
+
+                      {/* label */}
+                      <span className="mobile-nav-row-label">{label}</span>
+
+                      {/* article count badge */}
+                      {count ? (
+                        <span className="mobile-nav-row-count" aria-label={`${count} articoli`}>{count}</span>
+                      ) : (
+                        <span className="mobile-nav-row-arrow" aria-hidden="true">↗</span>
+                      )}
                     </Link>
-                  </Reveal>
-                </div>
-              ))}
+                  </motion.div>
+                )
+              })}
             </nav>
 
-            {/* footer */}
-            <div className="flex-shrink-0 relative z-10">
-              <Reveal delay={0.48}>
-                <div className="flex justify-between items-center"
-                  style={{ borderTop:'1px solid rgba(201,160,82,0.07)', padding:'14px clamp(24px,5vw,52px)' }}>
-                  <span style={{ fontSize:8, letterSpacing:'0.3em', textTransform:'uppercase', color:'rgba(201,160,82,0.2)' }}>
-                    La Scienza applicata allo Sport
-                  </span>
-                  <span style={{ fontSize:8, fontFamily:'monospace', color:'rgba(201,160,82,0.12)' }}>
-                    © {new Date().getFullYear()} FitforIN
-                  </span>
-                </div>
-              </Reveal>
-            </div>
+            {/* ── FOOTER STRIP ─────────────────────────── */}
+            <motion.div
+              className="relative z-10 flex-shrink-0 flex justify-between items-center"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              transition={{ duration: 0.4, delay: 0.58, ease: 'easeOut' }}
+              style={{
+                borderTop: '1px solid rgba(201,160,82,0.07)',
+                padding: '13px clamp(20px,3vw,44px)',
+              }}
+            >
+              <span style={{ fontSize: 8, letterSpacing: '0.35em', textTransform: 'uppercase', color: 'rgba(201,160,82,0.2)' }}>
+                La Scienza applicata allo Sport
+              </span>
+              <span style={{ fontFamily: 'monospace', fontSize: 8, color: 'rgba(201,160,82,0.14)' }}>
+                © {new Date().getFullYear()} FitforIN
+              </span>
+            </motion.div>
           </motion.div>
         )}
       </AnimatePresence>

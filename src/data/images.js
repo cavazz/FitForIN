@@ -27,9 +27,9 @@ export const articleImages = {
   // recovery methods: atmosphere of rest/recovery
   'recovery-methods-basketball':                  PEX(2277981),   // moody wet court reflection
 
-  // ── TRAINING — Unsplash (verified old-format IDs) ─────────────────────
+  // ── TRAINING — Unsplash ───────────────────────────────────────────────
   'allenare-gesto-atleta':
-    UNS('1571019613454-1cb2f99b2d8b'),    // athletic training movement
+    UNS('1571019613454-1cb2f99b2d8b'),    // athlete mid-movement — training
   'professionisti-dilettanti-falso-mito':
     UNS('1461896836934-ffe607ba8211'),    // athlete running on road
   'epigenetica-sport':
@@ -43,7 +43,7 @@ export const articleImages = {
   'warm-up-durata-ottimale':
     UNS('1526676037777-05a232554f77'),    // athlete stretching / warm-up
   'oltre-vo2max-soglia-neuromeccanica':
-    UNS('1571019613454-1cb2f99b2d8b'),    // athletic conditioning
+    UNS('1476480722344-e6189e2ac3a'),     // endurance athlete cycling — VO2max
   'approccio-integrato-performance-metabolomica':
     UNS('1559757175-0eb30cd8c063'),       // science/anatomy — metabolomics
 
@@ -55,13 +55,13 @@ export const articleImages = {
   'vitamina-d-performance':
     UNS('1505576399279-565b52d4ac71'),    // vitamins / supplements
   'basketball-off-season':
-    UNS('1461896836934-ffe607ba8211'),    // off-season conditioning / running
+    UNS('1519861531473-9200262188bf'),    // basketball outdoor training — off-season
 
   // ── MEDICINA SPORTIVA — Unsplash ──────────────────────────────────────
   'sarcopenia-problema-cerebrale':
-    UNS('1534438327276-14e5300c3a48'),    // strength training — muscle mass
+    UNS('1484544808355-8ec84e534d75'),    // older athlete strength training — sarcopenia
   'muscolo-organo-endocrino':
-    UNS('1549060279-7e168fcee0c2'),       // gym / muscle work
+    UNS('1581009137042-c552e485697a'),    // muscles close-up / bodybuilding
   'crampi-muscolari-esercizio':
     UNS('1608245449230-4ac19066d2d0'),    // basketball — cramps from exertion
   'emergenze-sportive-primo-soccorso':
@@ -75,13 +75,13 @@ export const categoryImages = {
   'Basket Lab':
     PEX(2874717),
   'Training':
-    UNS('1534438327276-14e5300c3a48'),
+    UNS('1534438327276-14e5300c3a48'),    // barbell / power lifting
   'Alimentazione':
-    UNS('1490645935967-10de6ba17061'),
+    UNS('1490645935967-10de6ba17061'),    // healthy protein meal
   'Medicina sportiva':
-    UNS('1559757175-0eb30cd8c063'),
+    UNS('1575052814086-f385e2e2ad1b'),    // sport medicine / physiotherapy
   "Scienza dell'esercizio":
-    UNS('1532187863486-abf9dbad1b69'),
+    UNS('1526676037777-05a232554f77'),    // athlete stretching — exercise science
 }
 
 export function getArticleImage(slug, category) {

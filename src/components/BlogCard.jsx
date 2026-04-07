@@ -7,23 +7,7 @@ export default function BlogCard({ article, index }) {
   return (
     <Link
       to={`/articolo/${article.slug}`}
-      className="group block relative overflow-hidden"
-      style={{
-        background: '#1A1714',
-        borderRadius: 12,
-        border: '1px solid rgba(201,160,82,0.1)',
-        transition: 'transform 0.22s ease, box-shadow 0.22s ease, border-color 0.22s ease',
-      }}
-      onMouseEnter={e => {
-        e.currentTarget.style.transform = 'translateY(-4px)'
-        e.currentTarget.style.borderColor = 'rgba(201,160,82,0.28)'
-        e.currentTarget.style.boxShadow = '0 12px 40px rgba(0,0,0,0.4), 0 0 0 1px rgba(201,160,82,0.08)'
-      }}
-      onMouseLeave={e => {
-        e.currentTarget.style.transform = 'translateY(0)'
-        e.currentTarget.style.borderColor = 'rgba(201,160,82,0.1)'
-        e.currentTarget.style.boxShadow = 'none'
-      }}
+      className="blog-card group block relative overflow-hidden"
     >
       {/* top gradient accent */}
       <span
@@ -37,11 +21,11 @@ export default function BlogCard({ article, index }) {
         <img
           src={getArticleImage(article.slug, article.category)}
           alt={article.title}
-          className="img-cover"
-          style={{ transition: 'transform 0.6s ease' }}
-          onMouseEnter={e => e.currentTarget.style.transform='scale(1.06)'}
-          onMouseLeave={e => e.currentTarget.style.transform='scale(1)'}
+          className="card-img img-cover"
           loading="lazy"
+          decoding="async"
+          width="800"
+          height="520"
         />
         {/* gradient over image */}
         <div
@@ -55,16 +39,19 @@ export default function BlogCard({ article, index }) {
           style={{
             fontSize: 32,
             letterSpacing: '-2px',
-            background: 'linear-gradient(180deg,rgba(201,160,82,0.22) 0%,transparent 100%)',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
+            color: 'rgba(201,160,82,0.18)',
           }}
         >{num}</span>
         {/* category badge on image */}
         <span
           className="absolute bottom-3 left-3 text-[7px] font-bold tracking-[0.22em] uppercase px-2 py-[3px] rounded"
-          style={{ background: 'rgba(201,160,82,0.14)', color: '#C9A052', backdropFilter: 'blur(6px)' }}
+          style={{
+            background: 'rgba(201,160,82,0.12)',
+            color: '#C9A052',
+            backdropFilter: 'blur(6px)',
+            border: '1px solid rgba(201,160,82,0.12)',
+            boxShadow: 'inset 0 1px 0 rgba(255,255,255,0.06)',
+          }}
         >
           {article.category}
         </span>
@@ -73,14 +60,8 @@ export default function BlogCard({ article, index }) {
       {/* Content */}
       <div className="p-4">
         <h3
-          className="font-semibold leading-[1.35] mb-3 transition-colors"
-          style={{
-            fontSize: 13,
-            color: 'rgba(232,220,186,0.72)',
-            transition: 'color 0.18s',
-          }}
-          onMouseEnter={e => e.currentTarget.style.color='#E8DCBA'}
-          onMouseLeave={e => e.currentTarget.style.color='rgba(232,220,186,0.72)'}
+          className="font-display font-bold leading-[1.3] mb-3"
+          style={{ fontSize: 13, color: 'rgba(232,220,186,0.72)', transition: 'color 160ms ease' }}
         >
           {article.title}
         </h3>
@@ -92,7 +73,7 @@ export default function BlogCard({ article, index }) {
             {article.readTime} min · {article.author}
           </span>
           <span
-            className="text-[11px] opacity-0 group-hover:opacity-100 transition-opacity"
+            className="text-[11px] opacity-0 group-hover:opacity-100 transition-opacity duration-200"
             style={{ color: '#C9A052' }}
           >↗</span>
         </div>
